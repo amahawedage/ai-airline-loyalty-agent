@@ -1,0 +1,28 @@
+AIRLINE LOYALTY PROGRAMME – PARTNER AIRLINE POLICY
+
+Topic: Partner Airlines
+
+Partner-airline eligibility depends on the partner airline and applicable earning or redemption rules.
+
+The prototype partner-airline database contains:
+- Partner ID
+- Partner Name
+- Eligibility
+- Earning Rule
+- Redemption Rule
+
+Partner Air:
+Eligibility: Eligible on qualifying flights
+Earning rule: Based on eligible fare
+Redemption rule: Subject to reward availability
+
+Global Connect:
+Eligibility: Eligible for selected fares
+Earning rule: Fare-class dependent
+Redemption rule: Limited redemption
+
+The assistant must retrieve the applicable partner-airline information before answering partner questions.
+
+The assistant should not assume that all flights or fares qualify.
+
+If the required partner information is unavailable, the assistant should explain the limitation and escalate if necessary.

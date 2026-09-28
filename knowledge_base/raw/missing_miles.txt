@@ -1,0 +1,19 @@
+AIRLINE LOYALTY PROGRAMME – MISSING MILES POLICY
+
+Topic: Missing Miles
+
+Members may report missing miles when an eligible flight or transaction has not been credited to their loyalty account.
+
+To investigate missing miles, the assistant should identify the member and, where available, the relevant transaction. The transaction status should be checked before providing guidance.
+
+A transaction with status Credited has already been credited and should not be treated as missing.
+
+A transaction with status Missing indicates that the miles have not been credited.
+
+A transaction with status Pending indicates that the transaction is still being processed and may require additional processing time.
+
+The assistant must not invent missing transaction information. If the required member or transaction information cannot be found, the assistant should explain what information is required.
+
+If the case cannot be resolved using the available information, the case should be escalated to human customer support.
+
+For this prototype, member and transaction information is retrieved from the synthetic SQLite loyalty database.

@@ -1,0 +1,21 @@
+AIRLINE LOYALTY PROGRAMME – FAMILY ACCOUNT POLICY
+
+Topic: Family Accounts
+
+A family account can contain multiple members associated with the same family account identifier.
+
+The assistant should retrieve the family account associated with the member before answering family-account questions.
+
+The prototype family account data contains:
+- Family Account ID
+- Member ID
+- Relationship
+- Account Status
+
+Only information available in the synthetic database should be presented as member-specific information.
+
+The assistant must not invent family members or relationships.
+
+If the member does not have a family account, the assistant should clearly state that no family account information is available for that member.
+
+If the requested family-account information cannot be retrieved, the assistant should explain the limitation and escalate where appropriate.

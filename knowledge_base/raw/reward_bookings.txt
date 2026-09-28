@@ -1,0 +1,21 @@
+AIRLINE LOYALTY PROGRAMME – REWARD BOOKING POLICY
+
+Topic: Reward Bookings
+
+Reward bookings require sufficient redeemable miles and availability of the requested reward.
+
+The assistant should identify the requested origin, destination, cabin and available member miles when evaluating a reward booking.
+
+The prototype reward database contains reward options with a required mileage amount and an availability status.
+
+A reward is eligible when:
+1. The member has sufficient redeemable miles.
+2. The requested reward is available.
+
+If the member does not have enough miles, the assistant should calculate or explain the mileage shortfall.
+
+If the requested reward is unavailable, the assistant should clearly state that availability is currently unavailable.
+
+The assistant must not claim that a reward booking has been completed. The prototype provides eligibility and guidance only.
+
+If the requested reward cannot be evaluated using the available information, the assistant should request the missing information or escalate the case.

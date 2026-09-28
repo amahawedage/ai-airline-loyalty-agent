@@ -1,0 +1,20 @@
+AIRLINE LOYALTY PROGRAMME – TIER UPGRADE POLICY
+
+Topic: Tier Upgrades
+
+Tier qualification depends on the member's current loyalty status and qualifying tier miles.
+
+The assistant should retrieve the member's current membership tier and tier-miles balance before providing tier-upgrade guidance.
+
+The following prototype qualification thresholds are used:
+
+Silver tier: 25,000 tier miles
+Gold tier: 50,000 tier miles
+
+A member with sufficient qualifying tier miles may be eligible for the corresponding tier.
+
+The assistant must distinguish between redeemable miles and tier miles. Redeemable miles are used for rewards, while tier miles are used for tier qualification.
+
+The assistant must not claim that a member has qualified for a tier without checking the member's available tier miles.
+
+If the available information is insufficient to determine eligibility, the assistant should explain the limitation and request the required information or escalate the case.

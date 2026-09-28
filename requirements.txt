@@ -1,0 +1,7 @@
+openai
+langgraph
+langchain-core
+chromadb
+streamlit
+python-dotenv
+pandas
