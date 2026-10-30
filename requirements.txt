@@ -5,3 +5,5 @@ chromadb
 streamlit
 python-dotenv
 pandas
+langchain-google-genai
+langchain-chroma

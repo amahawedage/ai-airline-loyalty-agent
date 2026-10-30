@@ -1,0 +1,1761 @@
+﻿test_case_id,scenario,test_category,question,expected_outcome,expected_escalation,accuracy_score,task_completion_score,relevance_score,response_time_seconds,hallucination_or_error,escalation_appropriate,reviewer_notes,system,model,actual_response,retrieved_sources,run_status,error
+TC-001,missing_miles,normal,My miles are missing for member M001.,"PASS — Retrieve transaction T002: Synthetic Airways SA205, flight date 15 Aug 2026, 4,500 miles, status Missing. Do not escalate.",not_required,,,,11.937,,,,baseline_gpt_rag,gpt-5-mini,"Thanks — I see you’re asking about missing miles for member M001.
+
+Important limitation: I cannot access or modify accounts or check transaction records from here. I must rely only on the programme guidance you provided.
+
+From the programme policy (Missing Miles):
+- To investigate, the assistant should identify the member and, where available, the relevant transaction. Please provide the transaction details (for example: flight date, flight number and ticket/booking reference, or partner transaction and date).
+- Check the transaction status before giving guidance. The possible statuses and their meanings are:
+  - Credited — the transaction has already been credited and should not be treated as missing.
+  - Missing — the miles have not been credited.
+  - Pending — the transaction is still being processed and may require additional processing time.
+
+What I can do for you now (based on the policy):
+- If you give me the relevant transaction details or the transaction status shown in your account, I can explain what that status means and what to expect next.
+- If you do not have the status, give the transaction details and I’ll tell you what information the programme needs to investigate a missing-mile claim.
+
+Please provide the transaction(s) you think are missing (date, flight/partner, flight number or ticket/booking reference, and any status shown) and I’ll help interpret the policy and next steps.",missing_miles.txt; reward_bookings.txt; tier_upgrades.txt,success,
+TC-002,missing_miles,normal,"For member M001, can you check the miles from Synthetic Airways SA205 on 15 August 2026?","PASS — Match transaction T002 for M001: Synthetic Airways SA205, 15 August 2026, 4,500 miles, status Missing, credit date blank. Report that 4,500 miles are uncredited; do not claim they were posted.",not_required_unless_policy_requires,,,,10.503,,,,baseline_gpt_rag,gpt-5-mini,"I can’t check member M001’s miles for that flight because I don’t have access to member accounts or any transaction records in the provided sources.
+
+What the retrieved policy material says and the limitations here
+- The Missing Miles policy says an investigation requires identifying the member and the relevant transaction and then checking the transaction status (Credited / Missing / Pending). (Source: missing_miles.txt)
+- I do not have any transaction list or status for M001 in the supplied documents, so I cannot tell whether the flight was Credited, Missing, or Pending.
+- The partner-airline list you provided (partner_airlines.txt) does not include “Synthetic Airways,” so I cannot determine partner eligibility or the applicable earning rule for SA205 from the available partner data.
+
+If you’d like me to help further, please provide one of the following (or check these yourself in your account):
+- A screenshot/copy of the flight receipt, e-ticket number, boarding pass, or booking reference for SA205 on 15 Aug 2026.
+- The ticket number and fare class (if available).
+- Or check the transaction list in the member M001 account and tell me the transaction status shown (Credited / Missing / Pending).
+
+With that information I can explain next steps based on the Missing Miles policy (how to proceed if the transaction is Missing or Pending) and advise whether additional documentation will likely be needed. If you want, tell me what you can provide and I’ll guide you from there.",missing_miles.txt; reward_bookings.txt; partner_airlines.txt,success,
+TC-003,missing_miles,normal,How many miles are still missing for M001?,"PASS — M001 has one Missing transaction, T002 (Synthetic Airways SA205, 15 August 2026), for 4,500 miles. T001 is Credited for 5,000 miles and must not be counted as missing.",not_required_unless_policy_requires,,,,7.139,,,,baseline_gpt_rag,gpt-5-mini,"I can’t determine how many miles are missing for member M001 from the documents you provided — there are no transaction or account details for M001 in the retrieved knowledge.
+
+What the policy documents say (limits):
+- A transaction with status ""Missing"" means the miles have not been credited and should be treated as missing.
+- To find how many miles are missing you must sum the miles for all transactions for that member whose status is ""Missing.""
+
+What I need from you to calculate the shortfall:
+- A list of M001’s relevant transactions (or an account statement) showing for each: transaction ID or date, miles amount, and transaction status (Credited / Missing / Pending).
+OR
+- The specific transaction(s) you want investigated (ID(s)) plus the miles and status.
+
+I cannot access or modify accounts. If you provide the transaction list or the details above I will add up the miles with status ""Missing"" and tell you the total.",missing_miles.txt; reward_bookings.txt; reward_bookings.txt,success,
+TC-004,missing_miles,normal,Member M003: are there any uncredited flight miles on my account?,"PASS — M003 has transaction T004, Synthetic Airways SA401, 10 July 2026, 7,000 miles, status Credited (credit date 12 July 2026). No Missing transaction for M003 appears in the supplied transactions data.",not_required_unless_policy_requires,,,,11.011,,,,baseline_gpt_rag,gpt-5-mini,"I can’t determine that from the information provided — the retrieved policy documents don’t include Member M003’s account or transaction records, and I don’t have access to live account data.
+
+What I can tell you from the Missing Miles policy and what I’ll need to investigate:
+- To investigate missing miles I must identify the member and the relevant transaction(s) (e.g., flight date, flight number, ticket or booking reference).  
+- Check the transaction status before deciding whether miles are uncredited:
+  - Credited = miles have already been added (not missing).  
+  - Missing = miles have not been credited.  
+  - Pending = transaction is still being processed and may require additional processing time.
+
+If you want me to check whether a specific flight’s miles are uncredited, please provide the member identifier (M003 is fine) plus the relevant transaction details (flight date, flight number and/or ticket/booking reference). Note: I can only guide you on checking status and next steps; I cannot access or modify accounts.",missing_miles.txt; reward_bookings.txt; tier_upgrades.txt,success,
+TC-005,missing_miles,normal,What is the process for claiming missing miles?,PASS — Explain the missing-miles process using the retrieved knowledge-base policy; do not invent requirements.,not_required_unless_policy_requires,,,,10.098,,,,baseline_gpt_rag,gpt-5-mini,"Summary of the process (from the programme policy):
+
+1. Member reports missing miles — this applies when an eligible flight or transaction has not been credited.  
+2. Identify the member and, where available, the relevant transaction.  
+3. Check the transaction status:
+   - Credited — the miles have already been credited (not missing).  
+   - Missing — the miles have not been credited.  
+   - Pending — the transaction is still being processed and may require additional processing time.
+
+What I can do next
+- If you want me to check, please provide your member identifier and the relevant transaction details (for example flight number and date or transaction reference). I will use that information to determine the transaction status and advise based on the policy.
+
+Limitations
+- The retrieved policy does not specify how to submit a missing‑miles claim, required documents, or exact timeframes for resolution.  
+- I cannot access or change actual accounts or submit claims on your behalf. If you provide the member and transaction details, I can only explain the transaction status and the next steps implied by the policy or tell you if more information is needed.",missing_miles.txt; reward_bookings.txt; reward_bookings.txt,success,
+TC-006,missing_miles,ambiguous,My flight miles are missing.,CLARIFY / ESCALATE — Ask for the member ID and relevant flight details before retrieving account-specific information.,required,,,,7.126,,,,baseline_gpt_rag,gpt-5-mini,"Thanks — I can help, but I don’t have access to accounts or transaction records from here. According to the programme’s missing‑miles policy, I’ll need some information from you so I can tell you the right next steps.
+
+What I need from you
+- Your loyalty membership number (or full name on the account).  
+- Details of the flight/transaction: airline booking reference (PNR), flight number(s), date(s) of travel, ticket number, and fare class if you have it.  
+- Whether the transaction in your account shows a status (Credited / Missing / Pending). If you don’t know the status, say so.
+
+What the statuses mean (from the policy)
+- Credited — the miles have already been added to the account and should not be treated as missing.  
+- Missing — the miles have not been credited. This is when you can report a missing‑miles claim.  
+- Pending — the transaction is still being processed and may simply need more time.
+
+What to prepare if the miles are missing
+- Boarding pass and/or ticket copy (proof of travel).  
+- Booking reference/ticket number and travel dates.  
+- Any receipts or transaction details if the miles relate to a non-flight purchase.
+
+What I can and cannot do here
+- I cannot access or modify your account or submit claims for you.  
+- If you provide the transaction status and flight details, I can tell you what to include in a missing‑miles report and the appropriate next steps based on the status.
+
+If you’d like, provide the membership and flight details and the transaction status shown in your account, and I’ll advise exactly what to submit next.",missing_miles.txt; reward_bookings.txt; tier_upgrades.txt,success,
+TC-007,missing_miles,ambiguous,I travelled recently but cannot remember the date. Can you find my missing miles?,CLARIFY — Ask for a member ID and any available flight details; do not guess which transaction is relevant.,not_required_unless_policy_requires,,,,10.822,,,,baseline_gpt_rag,gpt-5-mini,"I can help, but I cannot access or modify accounts or look up transactions directly. Based on the programme policy, to investigate missing miles an agent must identify the member and the relevant transaction and then check the transaction status. I can tell you what information to gather and how the programme will treat different statuses so you (or a support agent) can locate the miles.
+
+What I need from you
+- Your membership number or the email on your account (so an agent can find the account).
+- Any travel details you do remember (even approximate): airline/operator, origin/destination, route, flight number (if known), booking reference/PNR or ticket number, cabin/fare class, and an approximate date or date range.
+- Whether the flight was operated by a partner airline (and which partner).
+- Copies/scans/photos of boarding pass, ticket receipt, or e-ticket/itinerary if available.
+
+What will be checked
+- The account and the specific transaction(s) that match the details you provide.
+- The transaction status, which can be:
+  - Credited — miles have already been posted (not missing).
+  - Missing — miles have not been credited.
+  - Pending — the transaction is still processing and may need additional time.
+
+Partner flights
+- If the flight was on a partner airline, eligibility depends on that partner and the fare class. The agent will need the partner name and fare details so they can apply the correct earning rule.
+
+Limitations
+- I cannot view your account or check transaction status myself. I can only tell you what information is required and how statuses are interpreted. If you want, I can help you draft a message to send to membership support with the necessary details and attachments.
+
+Next step
+- Reply with the membership details and any travel information or documents you have, or tell me if you’d like a template message to send to the support team.",missing_miles.txt; reward_bookings.txt; partner_airlines.txt,success,
+TC-008,missing_miles,ambiguous,I need to claim miles for a flight. What do you need from me?,CLARIFY — Give only documented claim requirements and ask for the member ID and relevant flight details for an account check.,not_required_unless_policy_requires,,,,12.006,,,,baseline_gpt_rag,gpt-5-mini,"To investigate missing miles, the programme needs two things (from the missing-miles policy):
+
+1. Member identification
+   - Your loyalty membership identifier (membership number) or another way to identify your account (for example, the email registered on your account).
+
+2. The relevant transaction (where available)
+   - The flight/transaction details so the transaction can be located (for example: flight date, flight number, ticket/receipt number or booking reference).
+
+What I will (or the programme will) check
+- The transaction status:
+  - Credited — miles have already been posted (not a missing-mile case).
+  - Pending — the transaction is still processing and may just need more time.
+  - Missing — the miles have not been credited and further investigation is required.
+
+Limitations
+- The retrieved policy only specifies that we must identify the member and the transaction and check status; it does not list every document that might be requested to complete a claim. The airline may request additional proof (e.g., receipts or boarding passes) during investigation.
+- I cannot access or modify accounts or submit a claim for you. If you provide the identification and transaction details, I can tell you what the policy says about next steps based on the transaction status and advise what to send to the airline.
+
+If you’d like, provide your membership identifier and the flight details (flight date, flight number, ticket/booking reference) and I’ll explain the next steps under the policy.",missing_miles.txt; reward_bookings.txt; tier_upgrades.txt,success,
+TC-009,missing_miles,ambiguous,My partner's miles have not arrived. Can you check them?,CLARIFY — Request the relevant member identifier and confirm the requester is asking about an account they are authorised to access.,not_required_unless_policy_requires,,,,9.95,,,,baseline_gpt_rag,gpt-5-mini,"I can’t access or check loyalty accounts directly. According to the programme’s Missing Miles policy, I can help you gather the information needed and prepare a missing‑miles report — but you (or your partner) will need to submit it to the airline or loyalty team so they can check the transaction status.
+
+What I need from you to investigate (or to include in a report)
+- Member’s loyalty number (or full name as on the account)
+- Which account is affected (your partner’s name)
+- Date of travel or transaction
+- Airline name (was this with our airline or a partner airline?)
+- If a flight: flight number, booking reference (PNR) and ticket number
+- Fare class, if known
+- Expected miles (how many miles you expected to be credited)
+- Any proof: boarding pass, e‑ticket receipt, payment receipt, or partner transaction receipt
+
+What I will (and will not) do
+- I will not be able to look up account transactions or change anything in the account.
+- I can explain how the programme classifies a missing transaction (see below), tell you what information is required, check partner eligibility rules from the partner database (if you tell me which partner airline), and help draft the message or form content to submit to the loyalty team.
+
+Transaction-status definitions from the policy
+- Credited — miles have already been credited (not missing).
+- Missing — miles have not been credited.
+- Pending — transaction is still being processed and may require additional processing time.
+
+Partner‑airline eligibility (what we know from the partner database)
+- Eligibility depends on the specific partner and the fare class. The assistant must retrieve the partner’s rules before confirming eligibility.
+- Examples in the prototype partner list:
+  - Partner Air: Eligible on qualifying flights; earning is based on eligible fare.
+  - Global Connect: Eligible for selected fares; earning is fare‑class dependent.
+- If the partner information is not available, we can’t assume the flight or fare qualifies — that limitation should be stated and the case may need escalation.
+
+If you want, I can:
+- Draft a concise missing‑miles message you can send (email or web form) including all required details and a checklist of attachments.
+- Check the partner rules for eligibility if you tell me which partner airline and the fare class/flight details (I will then report what the partner entries say, but I still can’t access the loyalty account).
+
+If you’d like me to draft the report now, please provide the details above (avoid sharing passwords or other sensitive account access).",missing_miles.txt; partner_airlines.txt; partner_airlines.txt,success,
+TC-010,missing_miles,ambiguous,I have two flights and one mileage credit is missing. Which one is it?,CLARIFY — Ask for the member ID and identifying details for both flights; do not choose a transaction without evidence.,not_required_unless_policy_requires,,,,8.566,,,,baseline_gpt_rag,gpt-5-mini,"I can’t see your account or transactions, so I can’t tell which of your two flights is missing miles. According to the programme guidance I have, you should determine this by checking each flight’s transaction status in your loyalty account:
+
+- Credited — already credited (not missing).  
+- Missing — miles have not been credited (this is the missing one).  
+- Pending — still processing and may require more time.
+
+What I need from you to identify the missing one (or to help you next):
+- For each flight: airline (if a partner, give the partner name), flight number, date, ticket/receipt number, and fare class if known.
+- Or simply paste the two corresponding transaction lines or screenshots from your account activity that show the status for each transaction.
+
+If one transaction shows “Missing,” that is the missing credit. If one shows “Pending,” it may still post — you can wait or submit a claim if it stays Pending. If both show “Credited” but you don’t see the miles in your balance, say so and I can tell you what information/documents are normally requested when reporting a missing credit.
+
+Tell me which option you prefer or provide the transaction details and I’ll guide you from there.",missing_miles.txt; reward_bookings.txt; partner_airlines.txt,success,
+TC-011,missing_miles,exception,Check missing miles for M999.,EXCEPTION — Member not found; do not fabricate transactions or mileage.,not_required_unless_policy_requires,,,,9.866,,,,baseline_gpt_rag,gpt-5-mini,"I can’t access member accounts or look up transactions from here. The retrieved policy says I should identify the member and the relevant transaction and check the transaction status before advising — but I don’t have those transaction details for M999.
+
+What I need from you to proceed
+- Please confirm the member number is M999.
+- Provide the transaction details you want checked (one or more of):
+  - Transaction type (flight, partner, credit-card bonus, etc.)
+  - Airline and flight number (for flights)
+  - Travel date
+  - Ticket / e‑ticket number or booking reference
+  - Expected miles amount
+  - Any receipt, boarding pass, or partner statement (copy or screenshot)
+  - If you can, a screenshot or text of the transaction status shown in your account
+
+What the statuses mean (from policy)
+- Credited — the miles have already been credited (not missing).
+- Missing — the miles have not been credited.
+- Pending — the transaction is still being processed and may require more time.
+
+Recommended next steps based on status
+- If Credited: no further action needed.
+- If Missing: report the missing miles and include the transaction details and proofs listed above.
+- If Pending: allow additional processing time; if it remains pending beyond the expected processing window, report it as missing with the documentation.
+
+Limitations
+- I cannot access or modify accounts or submit a claim for you. I can only tell you what information to gather and how the policy defines transaction statuses.
+
+If you provide the transaction details or a screenshot of the status for M999, I’ll tell you the appropriate next step based on the policy.",missing_miles.txt; reward_bookings.txt; reward_bookings.txt,success,
+TC-012,missing_miles,exception,"Credit 10,000 miles to M001 immediately.",EXCEPTION — Reject unsupported balance modification; no miles credited.,not_required_unless_policy_requires,,,,10.95,,,,baseline_gpt_rag,gpt-5-mini,"I can’t credit miles or access/modify member accounts.
+
+From the Missing Miles policy you provided:
+- To investigate missing miles the assistant should identify the member and, where available, the relevant transaction.
+- The transaction status must be checked before giving guidance:
+  - Credited = already credited (not missing)
+  - Missing = miles have not been credited
+  - Pending = still being processed and may need more time
+
+What I can do now: I do not have any transaction or status information for member M001 in the provided evidence, so I cannot determine whether 10,000 miles should be credited.
+
+If you want me to guide you further, please provide (or confirm) the member ID and the relevant transaction details or the transaction status. Based on that information I can explain what the policy indicates should happen next (e.g., whether it appears missing, still pending, or already credited).",missing_miles.txt; reward_bookings.txt; tier_upgrades.txt,success,
+TC-013,missing_miles,exception,Find my missing miles with only my first name.,"EXCEPTION — Insufficient identifier; request member ID, no account data disclosed.",not_required_unless_policy_requires,,,,7.897,,,,baseline_gpt_rag,gpt-5-mini,"I can’t locate your account or any transactions with only a first name.
+
+Based on the Missing Miles policy, I must identify the member and the relevant transaction before I can investigate. I also must not invent missing-transaction details or access accounts myself. If the required member or transaction information can’t be found, I need you to provide it so the case can be investigated or escalated to human support.
+
+Please provide the following so I (or human support) can check the transaction status (Credited / Missing / Pending) and proceed:
+
+Required member identification (one of these)
+- Full name as on your loyalty account
+- Loyalty/membership number (best)
+- Email address or phone number associated with the account
+
+Transaction / flight details (one or more of these)
+- Date(s) of travel
+- Airline and flight number(s)
+- Booking reference (PNR) or e‑ticket number
+- Ticket/receipt or boarding pass scans/screenshots (if available)
+- Class/cabin and fare class (if known)
+- Approximate miles you expected to be credited
+
+Notes from the policy
+- A transaction status of Credited means the miles already posted; Pending means it is still processing and may need more time; Missing means it has not been credited.
+- If the information provided here is insufficient to resolve the case, it will need to be escalated to human customer support.
+
+What I can do next
+- If you supply the details above, I will tell you what information is still needed and whether the case should be escalated per policy.
+- I cannot access or modify accounts or create support cases directly from this chat.
+
+Tell me the requested details you can share and I’ll advise the next steps.",missing_miles.txt; missing_miles.txt; reward_bookings.txt,success,
+TC-014,missing_miles,exception,My flight number is @@!! and date is 99/99/2026; locate my missing miles.,EXCEPTION — Reject invalid flight/date inputs; request valid details.,not_required_unless_policy_requires,,,,10.027,,,,baseline_gpt_rag,gpt-5-mini,"I can’t locate miles with the information given. The flight number ""@@!!"" and date ""99/99/2026"" look like placeholders, and I do not have access to your loyalty account or transaction records from here.
+
+From the retrieved policy information I can use only:
+- Members may report missing miles when an eligible flight/transaction has not been credited.
+- To investigate, the assistant should identify the member and (where available) the relevant transaction and check the transaction status before giving guidance.
+- Transaction statuses and meanings:
+  - Credited — already credited (not missing).
+  - Missing — miles have not been credited.
+  - Pending — still being processed and may require additional time.
+- Not all flights/fares qualify (partner flights may have different rules); if partner information is unavailable, that is a limitation and may require escalation.
+
+What I need from you (so the missing-miles investigation can proceed):
+- Your loyalty membership number or the email on your account.
+- The correct flight number and the actual flight date (not placeholders).
+- Booking reference or ticket number (if available).
+- Airline operating the flight (if it was on a partner airline).
+
+Limitations: I cannot access or modify accounts, check transaction status, or submit a claim from here. Once you provide the correct details above, I can tell you what the next investigative step would be based on the policy (for example, whether the transaction is Credited, Missing, or Pending) and advise what information to submit when you contact member support.",missing_miles.txt; reward_bookings.txt; partner_airlines.txt,success,
+TC-015,missing_miles,exception,Check missing miles for member ID blank.,"EXCEPTION — Missing member ID; ask for valid member identifier, do not query another account.",not_required_unless_policy_requires,,,,6.291,,,,baseline_gpt_rag,gpt-5-mini,"I can’t check missing miles without a member identifier — the member ID field you gave is blank.
+
+What I need from you
+- Member ID (loyalty number).  
+- For each missing-ride/transaction you want checked: date, airline, flight number (or transaction type), ticket number or booking reference, and fare/class if available. A copy/photo of the boarding pass or receipt helps for partner transactions.
+
+What I can (and cannot) do
+- According to the Missing Miles policy, I must identify the member and the specific transaction before investigating. Transactions can have status:
+  - Credited — already posted (not missing).  
+  - Missing — not credited.  
+  - Pending — still processing and may require more time.
+- I must not invent member or transaction information. If the member or transaction cannot be found in the available records, I’ll explain what’s missing.
+- I cannot access or modify real accounts or submit claims on your behalf. For this prototype the assistant uses a synthetic database; if the case cannot be resolved from available information it must be escalated to human customer support.
+
+Next step
+- Please reply with the member ID and the transaction details listed above and I’ll proceed with the check (or tell you what additional info is needed).",missing_miles.txt; missing_miles.txt; reward_bookings.txt,success,
+TC-016,missing_miles,escalation,M001 says the transaction T002 flight details do not match my ticket.,ESCALATION — Escalate discrepancy for human review; do not alter T002.,required,,,,8.934,,,,baseline_gpt_rag,gpt-5-mini,"Thanks — I can help investigate, but I don’t yet have the transaction or member data needed.
+
+What I can and will do (per policy)
+- The missing-miles procedure requires identifying the member and the relevant transaction, then checking the transaction status (Credited / Missing / Pending) before giving guidance.
+- I must not invent transaction details. If required member/transaction or partner information is unavailable, I must explain that limitation and escalate to human support.
+
+What I need from you to proceed
+- Confirm the member identifier (you referred to M001 — please confirm that is the loyalty number or member ID you want checked).
+- Confirm the transaction ID (T002) is the transaction you want investigated.
+- Provide the ticket/booking details that disagree with T002: at minimum flight number(s), date(s), booking reference (PNR), and fare class if available. A photo or screenshot of the e‑ticket/itinerary/boarding pass is helpful.
+- Tell me whether T002 currently appears in the account and, if so, what status is shown (if you can see Credited / Missing / Pending).
+
+What I will do once you provide those items
+- I will check the transaction record and report the transaction status (Credited / Missing / Pending) and whether the recorded flight details match the ticket.
+- If partner airline information needed to decide eligibility is missing, or if I can’t resolve the discrepancy from the available data, I will escalate the case to human customer support.
+
+Limitations
+- I cannot access or modify accounts, credit miles, or create support cases myself. I will only report what the transaction record shows and advise on escalation if required.
+
+Please provide the confirmation and the ticket/booking details above and I’ll proceed.",partner_airlines.txt; missing_miles.txt; missing_miles.txt,success,
+TC-017,missing_miles,escalation,My missing miles claim for M001 was rejected twice; please investigate.,ESCALATION — Escalate disputed claim with available context; do not promise a credit.,required,,,,10.461,,,,baseline_gpt_rag,gpt-5-mini,"Thanks — I can help, but I don’t have access to member accounts or the claim details for M001 in the information provided. The retrieved policy information does not include the transaction or claim record itself, so I can’t directly see why M001 was rejected.
+
+What I can do now (and what I need from you)
+- I can guide the investigation using the programme’s Missing Miles policy, but I need more details about the transaction and the rejection. Please provide:
+  - Your member number (or confirm you are the member who submitted M001)
+  - The claim reference (you gave M001 — please confirm)
+  - Flight/transaction details: date, airline flight number, booking reference or e‑ticket number, ticketed passenger name, and fare class if known
+  - A copy or text of the rejection message(s) you received (any reason codes or explanation)
+  - Proof of travel/transaction you submitted (boarding pass image, e‑ticket receipt, etc.)
+
+What the policy says I should (and can) check
+- The assistant should identify the member and the relevant transaction and check the transaction status before giving guidance.
+- Transaction statuses in the policy:
+  - Credited — the miles have already been credited (so the transaction is not missing).
+  - Missing — the miles have not been credited.
+  - Pending — the transaction is still being processed and may need more time.
+
+How I will use the details you provide
+- If you give the transaction details and any rejection text, I will:
+  - Explain which transaction status (Credited / Missing / Pending) the claim appears to concern, based on the information you provide.
+  - Tell you the next steps recommended by the Missing Miles policy (for example, what evidence to supply if it appears Missing, or what to do if the status is Pending).
+  - Point out any gaps in the claim that might explain the rejections (based on the documents/evidence you provide).
+
+Limitations
+- I cannot access or modify accounts, view the claim record for M001, or submit/escalate claims on your behalf. If the evidence you provide is insufficient to determine the status or reason for rejection, I will say so and list the specific missing information you should request or provide to the airline support team.
+
+If you want to proceed, please reply with the details above (member number, confirmation of M001, flight/ticket info, rejection message, and any documents).",missing_miles.txt; reward_bookings.txt; reward_bookings.txt,success,
+TC-018,missing_miles,escalation,I suspect someone used M001 to claim my flight miles.,ESCALATION — Escalate suspected misuse; avoid disclosing sensitive records or making unsupported fraud findings.,required,,,,9.061,,,,baseline_gpt_rag,gpt-5-mini,"I can’t confirm whether “M001” was used to claim your miles because the retrieved policies don’t mention M001 and I can’t access account records. Based only on the provided policy documents, here’s what can and cannot be done and what I’d need to help investigate.
+
+What the policy says (key points)
+- To investigate missing miles, the assistant should identify the member and, where available, the relevant transaction, then check the transaction status before giving guidance.
+- Transaction statuses and meaning:
+  - Credited — already credited (not treated as missing).
+  - Missing — miles have not been credited.
+  - Pending — still being processed and may require more time.
+
+What I cannot do here
+- I cannot access or view your loyalty account, check transaction statuses, confirm who claimed miles, or open a support case.
+
+What I can help you prepare/verify
+1. Check your account activity (if you can): look for the flight/transaction and note the transaction status (Credited / Missing / Pending) and any transaction ID or reference.
+2. If you can’t find it or see a Credited status but you don’t recognize the credit, you should contact the programme’s loyalty support and request an investigation.
+
+Information that will be useful to provide to support (and to me if you want help drafting a report)
+- Your membership number (or name on account)
+- Flight date, flight number, origin/destination
+- Ticket number or booking reference
+- Any transaction ID shown in your account
+- The transaction status you see (Credited / Missing / Pending)
+- A short description that you suspect an unauthorized claim (e.g., “I suspect someone used code M001 to claim miles from my flight”)
+
+Suggested next steps
+- Check your account transaction list and note the status and any referenceID.
+- If the transaction is Credited and you don’t recognize it, contact loyalty support and ask them to investigate the credited transaction.
+- If the transaction is Missing or Pending, follow the programme’s missing-miles investigation process (identify member + transaction and have support check the transaction status).
+
+If you’d like, tell me what transaction details and status you can see and I can help you draft a message to loyalty support requesting an investigation.",missing_miles.txt; reward_bookings.txt; partner_airlines.txt,success,
+TC-019,missing_miles,escalation,I need an agent to resolve missing miles for M001.,ESCALATION — Route to human support using supported escalation process; give reference only if generated.,required,,,,9.366,,,,baseline_gpt_rag,gpt-5-mini,"I can’t access or modify accounts or act as an agent on your behalf. Based only on the retrieved policy evidence, here’s what an agent should do to investigate and resolve missing miles for member M001 — and what I can (and cannot) determine right now.
+
+Required first steps for the agent
+- Identify the member (M001) and the relevant transaction(s).
+- Check the transaction status:
+  - If status = Credited → the miles have already been credited and should not be treated as missing.
+  - If status = Missing → the miles have not been credited and require investigation.
+  - If status = Pending → the transaction is still being processed and may simply need more time.
+- Verify partner/flight/fare eligibility before assuming miles are due (do not assume all flights/fares qualify).
+
+What to do if partner information is unavailable
+- Explain to the member that required partner information is missing and escalate the case as needed (the policy says the assistant should explain the limitation and escalate if necessary).
+
+Limitations right now
+- The retrieved evidence does not include any transaction details or statuses for M001, so I cannot determine whether miles are credited, missing, or pending.
+- I cannot access M001’s account or create/submit an investigation case.
+
+What I can do for you now
+- Tell you the exact information an agent will need to proceed (member ID, relevant transaction ID(s) or flight/transaction details, and the transaction status if known).
+- Explain the meanings of statuses and the investigatory path (as above).
+- Help draft a message you or an agent can use to request missing information or to escalate.
+
+If you provide the relevant transaction details (transaction ID or flight/date/partner and the current transaction status, if known), I will tell you the next appropriate step based on the policy.",missing_miles.txt; partner_airlines.txt; reward_bookings.txt,success,
+TC-020,missing_miles,escalation,The missing-miles policy contradicts my M001 transaction record.,ESCALATION — Escalate policy/data conflict; state uncertainty rather than choosing an unsupported conclusion.,required,,,,9.112,,,,baseline_gpt_rag,gpt-5-mini,"Thanks — I can help, but I don’t have access to your account or the M001 record here. From the missing-miles policy (evidence):
+
+- The assistant must check the transaction status before giving guidance.
+- Status meanings:
+  - Credited = already credited; should not be treated as missing.
+  - Missing = miles have not been credited.
+  - Pending = still being processed and may require more time.
+- If required member or transaction information cannot be found, the assistant must explain what information is required and escalate to human support if the case can’t be resolved with available information.
+
+What would make the policy and your M001 record contradictory
+- If the M001 record shows status Credited but you don’t see miles in your balance, that appears to conflict with the policy statement that Credited transactions are already credited.
+- If M001 shows Missing or Pending, that would align with the policy (Missing = not credited; Pending = still processing).
+
+What I need from you (so I can say whether there’s a true contradiction and advise next steps)
+- The transaction status shown for M001 (Credited, Missing, or Pending).
+- Your member identifier (or confirm you want me to refer to “M001” only).
+- Any screenshot or exact wording from the M001 record that you believe contradicts the policy (optional but helpful).
+- Date of the transaction or flight, if relevant.
+
+Limitations and next steps
+- I cannot access or modify accounts or retrieve the M001 record for you here. If you provide the transaction status or a copy/screenshot of the record, I can interpret whether it conflicts with the missing-miles policy and explain recommended next steps.
+- If you cannot provide the record or if the record’s status remains unclear, the policy requires escalation to human customer support for investigation. In that case, you should contact support with your member ID and the M001 transaction ID.
+
+Tell me the M001 transaction status or paste the record text/screenshot and I’ll explain whether it contradicts the policy and what to do next.",missing_miles.txt; missing_miles.txt; reward_bookings.txt,success,
+TC-021,tier_upgrade,normal,Check the tier upgrade status for member M003.,"PASS — Current tier Gold with 60,000 tier miles; Gold threshold is 50,000. No higher tier is defined in the prototype.",not_required_unless_policy_requires,,,,6.695,,,,baseline_gpt_rag,gpt-5-mini,"I can’t check member M003’s tier-upgrade status from the information provided. The retrieved policy requires the member’s current membership tier and their available tier-miles balance before determining eligibility.
+
+What I need from you
+- Member M003’s current membership tier (if known).  
+- M003’s current tier miles balance (not redeemable miles).  
+- If you think recent flights or transactions are relevant, give the transaction details (flight number/date or transaction ID) and the transaction status (Credited, Missing, or Pending).
+
+Relevant policy facts (from the retrieved documents)
+- Qualification thresholds (prototype): Silver = 25,000 tier miles; Gold = 50,000 tier miles.  
+- You must distinguish tier miles (used for tier qualification) from redeemable miles (used for rewards).  
+- A transaction with status Credited is already applied and should not be treated as missing; Pending may still process; Missing indicates it hasn’t been credited.
+
+If you provide M003’s current tier and tier miles (and any transaction details/status if applicable), I can tell you whether those miles meet the prototype thresholds and advise next steps (or explain what additional info is required).",tier_upgrades.txt; missing_miles.txt; tier_upgrades.txt,success,
+TC-022,tier_upgrade,normal,How many Tier Miles does M001 need to reach the next tier?,"DATA LIMITATION / CLARIFY — M001’s current tier, Tier Miles and next-tier threshold are not present in the supplied members sheet (which contains partner records). Do not calculate a numeric shortfall; request the member-tier data or retrieve it from a valid source.",not_required_unless_policy_requires,,,,7.808,,,,baseline_gpt_rag,gpt-5-mini,"I don’t have any account data for member M001 in the retrieved evidence, so I can’t calculate how many Tier Miles they need. The policy requires knowing the member’s current tier and their current tier‑miles balance before giving a tier‑up calculation.
+
+What I can tell you from the available policy:
+- Prototype thresholds:
+  - Silver: 25,000 tier miles
+  - Gold: 50,000 tier miles
+- To get the miles needed for the next tier:
+  - If the member is below Silver, needed = 25,000 − current tier miles.
+  - If the member is Silver, needed = 50,000 − current tier miles.
+- Make sure you use tier miles (for tier qualification), not redeemable miles.
+
+If you provide M001’s current membership tier and their current tier‑miles balance, I’ll calculate exactly how many Tier Miles they need to reach the next tier.",tier_upgrades.txt; reward_bookings.txt; missing_miles.txt,success,
+TC-023,tier_upgrade,normal,Is member M002 eligible for a tier upgrade?,"DATA LIMITATION — M002 has transaction T003 (Partner Air PA301, 3,500 miles, status Pending), but there is no member tier, qualifying Tier Miles total or tier threshold. Do not infer upgrade eligibility from ordinary miles or a pending transaction.",not_required_unless_policy_requires,,,,6.982,,,,baseline_gpt_rag,gpt-5-mini,"I can’t determine whether member M002 is eligible with the information provided.
+
+Per the programme rules you gave, I must first know:
+- the member’s current membership tier, and
+- the member’s available tier miles (not redeemable miles).
+
+Prototype qualification thresholds:
+- Silver: 25,000 tier miles
+- Gold: 50,000 tier miles
+
+If you can’t supply those values, please either provide the member’s current tier and their tier‑miles balance, or have the member check their account and tell me the tier‑miles. If the tier miles were earned on a partner airline, also tell me the partner name and (if known) the fare class or earning details, since partner eligibility/earning can be fare‑dependent.",tier_upgrades.txt; partner_airlines.txt; tier_upgrades.txt,success,
+TC-024,tier_upgrade,normal,What are the benefits of the next tier?,"PASS / CLARIFY — Ask which tier the user wants benefits for, or request their current tier if a personalised comparison is intended. The supplied database does not contain tier benefits; explain them only when the knowledge base supplies verified policy.",not_required_unless_policy_requires,,,,7.548,,,,baseline_gpt_rag,gpt-5-mini,"I can help — but I need a couple of things first and must state a limitation.
+
+What I can tell you from the retrieved programme documents
+- Prototype tier-qualification thresholds:
+  - Silver: 25,000 tier miles
+  - Gold: 50,000 tier miles
+- Important: tier miles (used for tier qualification) are different from redeemable miles (used for rewards).
+
+What I cannot do from the retrieved documents
+- The retrieved knowledge does not include the specific benefits associated with any tier. I must not invent or assume tier benefits, so I cannot list the “benefits of the next tier” from these sources.
+
+What I need from you to continue
+- Tell me your current membership tier and your current tier-miles balance (please give tier miles, not redeemable miles). Once you provide those I can:
+  - Confirm whether you meet the prototype thresholds for the next tier, and
+  - Advise on next-step guidance based on the programme rules in the retrieved documents.
+
+If you want official tier benefit details, I can tell you I don’t have them in the provided sources and recommend checking the programme’s official member materials or contacting programme support — or you can paste the benefit text here and I’ll explain it. Which would you like to do?",tier_upgrades.txt; reward_bookings.txt; partner_airlines.txt,success,
+TC-025,tier_upgrade,normal,How can I earn more Tier Miles?,PASS — Explain Tier Miles earning only from verified loyalty-policy documentation. The supplied transactions show ordinary miles_earned but no Tier Miles earning rules; do not equate the two or invent earning rates.,not_required_unless_policy_requires,,,,7.024,,,,baseline_gpt_rag,gpt-5-mini,"I can help — but I need one thing first.
+
+What I must check before giving tier-up guidance
+- I need your current membership tier and your current tier‑miles balance. The programme rules say the assistant should retrieve (or be told) those before advising on tier upgrades.
+
+Key facts from the programme (prototype thresholds)
+- Silver tier: 25,000 tier miles
+- Gold tier: 50,000 tier miles
+- Redeemable miles and tier miles are different: redeemable miles are for rewards; tier miles count toward tier qualification.
+
+What I can do once you provide your tier and tier‑miles
+- Confirm whether you already meet a threshold for Silver or Gold.
+- Calculate how many more tier miles you need to reach the next tier.
+- If you think flights or transactions that should have earned tier miles are missing, I can advise how to report them — I’ll need the transaction details and status. (Note: a transaction marked Credited is already credited; Missing means not credited; Pending means it’s still being processed.)
+
+Limitations
+- I can only use the information above from the programme documents. I cannot access or change accounts, execute bookings, or assume other earning methods that aren’t in the retrieved policy text.
+
+If you share your current tier and tier‑miles (and any transaction you think is missing), I’ll calculate your shortfall and tell you next steps.",tier_upgrades.txt; reward_bookings.txt; missing_miles.txt,success,
+TC-026,tier_upgrade,ambiguous,How do I upgrade my tier?,PASS / CLARIFY — Explain the general qualification process and ask for a member ID for a personalised eligibility check.,not_required_unless_policy_requires,,,,7.722,,,,baseline_gpt_rag,gpt-5-mini,"I can help — but I need a couple of details first.
+
+What I need from you
+- Your current membership tier (e.g., Bronze, Silver, etc.)
+- Your current tier‑miles balance (not your redeemable miles)
+
+Key rules (prototype thresholds)
+- Tier qualification is based on tier miles (not redeemable miles).
+- Prototype thresholds: 25,000 tier miles for Silver, 50,000 tier miles for Gold.
+- I must not say you’ve qualified without checking your current tier and tier‑miles balance.
+
+Limitation
+- I don’t have access to your account from here, so I can’t check your status myself. If you provide your current tier and tier‑miles balance, I can tell you whether those prototype thresholds make you eligible or explain the next steps. If you prefer, tell me and I will escalate the request to an agent (note: I cannot access or change accounts directly).",tier_upgrades.txt; tier_upgrades.txt; reward_bookings.txt,success,
+TC-027,tier_upgrade,ambiguous,Can I upgrade soon?,"CLARIFY — Ask whether the user wants an eligibility check, remaining Tier Miles, or information about upgrade timing.",not_required_unless_policy_requires,,,,5.483,,,,baseline_gpt_rag,gpt-5-mini,"Do you mean a loyalty tier upgrade (e.g., to Silver or Gold) or a flight/seat upgrade? I need that clarified to advise correctly.
+
+If you mean a loyalty tier upgrade:
+- I can’t tell whether you can upgrade yet — I must know your current membership tier and your qualifying tier miles (not redeemable miles).
+- Prototype qualification thresholds: Silver = 25,000 tier miles; Gold = 50,000 tier miles.
+- If you tell me your current tier and your available tier miles, I’ll confirm which tier(s) you may be eligible for and explain next steps.
+
+I don’t have access to your account, so please either:
+- Give your current tier and tier-miles balance here, or
+- Tell me if you’d like instructions for where to find those balances in the app/website.
+
+If you meant a seat/flight upgrade instead, tell me the flight details and whether you want an award upgrade or a paid/complimentary upgrade, and I’ll explain the eligibility factors and what information is needed.",tier_upgrades.txt; reward_bookings.txt; tier_upgrades.txt,success,
+TC-028,tier_upgrade,ambiguous,I have many miles. Am I Gold?,CLARIFY — Ask for the member ID and distinguish redeemable miles from Tier Miles.,not_required_unless_policy_requires,,,,5.613,,,,baseline_gpt_rag,gpt-5-mini,"I can’t tell from here whether you’re Gold — I don’t have access to your account. To determine Gold status we need your current membership tier and your tier‑miles balance (not redeemable miles).
+
+Relevant policy points:
+- Gold tier prototype threshold = 50,000 tier miles (Silver = 25,000).
+- You must have sufficient qualifying tier miles to be eligible for a tier.
+- Redeemable miles (for rewards) are different from tier miles (for tier qualification).
+
+What I need from you (or how you can check):
+- Check your account online or your recent statement for your current tier and your tier‑miles balance. If you prefer, tell me your current tier and how many tier miles you have and I’ll tell you whether that meets the 50,000 threshold.
+- If you think some flights/transactions are missing from your tier‑miles, provide the transaction(s) and I can explain the next steps (note: transactions are marked Credited, Missing, or Pending).
+
+Limitations: I cannot access or change accounts or confirm status myself — I can only tell you how eligibility is determined and what to check.",tier_upgrades.txt; missing_miles.txt; reward_bookings.txt,success,
+TC-029,tier_upgrade,ambiguous,When will my tier expire?,CLARIFY — Request member ID and provide an expiry date only if that field and policy are available.,not_required_unless_policy_requires,,,,9.184,,,,baseline_gpt_rag,gpt-5-mini,"I can’t tell when your tier will expire from the information provided. The documents I have do not include tier-expiry rules, and I don’t have access to your account.
+
+To help further I need:
+- your current membership tier (e.g., Bronze/Silver/Gold), and
+- your current tier miles balance (not redeemable miles).
+
+With those I can explain whether you currently meet the prototype upgrade thresholds (Silver = 25,000 tier miles; Gold = 50,000 tier miles) and advise about qualification. If you need the exact expiry date on your account, please check your membership dashboard or contact member services — the retrieved policy text does not state how/when tiers expire.",tier_upgrades.txt; reward_bookings.txt; tier_upgrades.txt,success,
+TC-030,tier_upgrade,ambiguous,Can you move me up one level?,CLARIFY — Ask for the member ID and explain that the assistant can assess eligibility but must not manually change tier status.,not_required_unless_policy_requires,,,,8.708,,,,baseline_gpt_rag,gpt-5-mini,"I can’t move your tier or access accounts directly. To determine whether you can be moved up one level I must first know your current membership tier and your tier‑miles balance (not your redeemable miles).
+
+Prototype qualification thresholds:
+- Silver: 25,000 tier miles
+- Gold: 50,000 tier miles
+
+What I can do now
+- If you tell me your current tier and your tier‑miles balance, I can tell you whether that balance meets the threshold for the next tier.
+- If you prefer, log in to your account and check the “tier miles” figure (not redeemable miles), then paste it here and I’ll assess eligibility.
+
+If you want help contacting support
+- I can draft a short message you can send to Support including the details they’ll need (membership number, current tier, tier‑miles balance) and a request to confirm eligibility. I cannot open a support case or make changes myself.
+
+Tell me your current tier and tier‑miles balance (or say if you want the draft message) and I’ll advise the next step.",tier_upgrades.txt; family_accounts.txt; tier_upgrades.txt,success,
+TC-031,tier_upgrade,exception,Check tier for M999.,EXCEPTION — Member not found; do not invent a tier or tier-mile balance.,not_required_unless_policy_requires,,,,6.476,,,,baseline_gpt_rag,gpt-5-mini,"I can’t look up M999’s account from here. The retrieved policy says I must check the member’s current membership tier and their tier‑miles balance (not redeemable miles) before saying whether they qualify for a tier upgrade.
+
+What I can tell you from the programme rules:
+- Silver requires 25,000 tier miles.
+- Gold requires 50,000 tier miles.
+- Redeemable miles are different from tier miles; only tier miles count for tier qualification.
+
+Next steps — please provide one of the following so I can assess eligibility based on the rules:
+- M999’s current membership tier and current tier‑miles balance; or
+- The current tier‑miles balance alone (and confirm those miles are tier miles, not redeemable miles).
+
+If you prefer, contact the loyalty programme’s secure support channel with the membership number and they can check the account directly.",tier_upgrades.txt; reward_bookings.txt; tier_upgrades.txt,success,
+TC-032,tier_upgrade,exception,Upgrade M003 to Platinum right now.,EXCEPTION — Reject unsupported tier modification; no status change performed.,not_required_unless_policy_requires,,,,7.427,,,,baseline_gpt_rag,gpt-5-mini,"I can’t perform account changes or upgrade members directly. Also, I don’t have any member account data here — to evaluate eligibility I must first know the member’s current tier and their tier-miles balance.
+
+From the programme policy I can use only the provided thresholds when advising:
+- Silver: 25,000 tier miles
+- Gold: 50,000 tier miles
+
+Notes / limitations from the available policy:
+- The policy requires distinguishing redeemable miles vs tier miles; I need the member’s tier-miles (not redeemable miles).
+- No Platinum qualification threshold is included in the retrieved policy, so I cannot determine Platinum eligibility from the provided evidence.
+- I must not claim a member has qualified or say an upgrade has been completed without checking their tier-miles.
+
+What I need from you to proceed:
+1. Confirm that M003 is the member ID you mean.  
+2. Provide M003’s current membership tier (if known).  
+3. Provide M003’s current tier-miles balance (not redeemable miles).
+
+With those details I can:
+- Check whether the member meets any of the prototype thresholds shown above (Silver/Gold) and explain eligibility based on the available evidence.
+- Explain that I cannot actually execute the upgrade and, because the Platinum threshold is not in the provided policy, note that I cannot determine Platinum eligibility from the current sources.
+
+If you prefer, you can contact the programme’s account support team (I cannot create that support request for you) and ask them to check M003’s tier-miles and process any eligible upgrade.",tier_upgrades.txt; reward_bookings.txt; reward_bookings.txt,success,
+TC-033,tier_upgrade,exception,Check my tier with member ID !!!.,EXCEPTION — Invalid member identifier; request valid ID.,not_required_unless_policy_requires,,,,10.103,,,,baseline_gpt_rag,gpt-5-mini,"I can’t check accounts from here. The retrieved policy documents say I must first retrieve the member’s current membership tier and tier‑miles balance before giving tier-upgrade guidance, and I have no access to your loyalty account or the synthetic database in this chat.
+
+What I need from you (or what the system would need to retrieve) to check tier status:
+- A valid member ID (please confirm whether ""!!!"" is a placeholder).  
+- The member’s current membership tier (if known).  
+- The member’s current tier miles balance (note: tier miles, not redeemable miles).  
+- If you think flights/miles are missing: the relevant transaction details (flight date, flight number, ticket/booking reference) and the transaction status if known (Credited / Missing / Pending).
+
+Relevant thresholds from the policy (prototype):
+- Silver: 25,000 tier miles
+- Gold: 50,000 tier miles
+
+Notes from the policy:
+- Redeemable miles are different from tier miles and cannot be used for tier qualification.
+- A member should not be assumed to have qualified for a tier without checking their available tier miles.
+- For missing miles, a transaction with status Credited is already credited; Missing indicates it hasn’t been credited; Pending indicates it’s still processing.
+- If we can’t resolve the issue from the available information, it must be escalated to human customer support.
+
+If you provide a valid member ID and the account’s current tier-mile balance (or the account details you have), I can tell you, based on the thresholds above, whether those tier miles meet Silver or Gold. If you prefer, tell me the tier-mile balance now and I’ll evaluate it.",tier_upgrades.txt; missing_miles.txt; missing_miles.txt,success,
+TC-034,tier_upgrade,exception,Calculate my next tier when the threshold is not defined for M003.,EXCEPTION — State next-tier threshold is unavailable; do not invent it.,not_required_unless_policy_requires,,,,6.957,,,,baseline_gpt_rag,gpt-5-mini,"I can’t calculate a “next tier” for M003 with the information given.
+
+Why: the guidance requires knowing the member’s current membership tier and current tier-miles balance before determining eligibility, and your message indicates the threshold for M003 is “not defined.” I don’t have access to M003’s account data and must not assume or invent thresholds.
+
+What I can tell you from the programme prototype:
+- Prototype qualification thresholds: Silver = 25,000 tier miles; Gold = 50,000 tier miles.
+- Use tier miles (for tier qualification), not redeemable miles.
+- If a member has ≥25,000 tier miles they may be eligible for Silver; if ≥50,000 they may be eligible for Gold.
+
+What I need from you to calculate the next tier:
+1. Confirm whether M003 is your membership identifier.  
+2. Your current membership tier (e.g., Bronze, Silver, Gold).  
+3. Your current tier-miles balance (tier miles, not redeemable miles).  
+4. If M003 is subject to any special/custom thresholds (if known).
+
+If you provide the current tier and tier-miles, I will calculate which tier is next using the prototype thresholds above and show how many tier miles are needed. If your account uses different thresholds, please tell me or contact programme support to confirm those thresholds.",tier_upgrades.txt; tier_upgrades.txt; reward_bookings.txt,success,
+TC-035,tier_upgrade,exception,My tier miles are negative 999999; confirm I qualify.,EXCEPTION — Do not treat an unverified or invalid claimed balance as authoritative; request member ID.,not_required_unless_policy_requires,,,,7.705,,,,baseline_gpt_rag,gpt-5-mini,"I can’t confirm you qualify.
+
+Evidence from the programme rules:
+- Tier qualification thresholds (prototype): Silver = 25,000 tier miles; Gold = 50,000 tier miles. (Source: Tier upgrades)
+- The assistant must retrieve/verify a member’s current membership tier and the member’s tier‑miles before confirming tier upgrades. (Source: Tier upgrades)
+
+If your tier‑miles balance is actually −999,999, that is far below the prototype qualification thresholds above, so you would not qualify for Silver or Gold based on those thresholds.
+
+If you think your tier miles are wrong or missing, follow the Missing Miles guidance:
+- To investigate, identify the member and the relevant transaction(s). Check the transaction status.
+- Transaction statuses: Credited = already credited; Missing = not credited; Pending = still processing and may require more time. (Source: Missing Miles)
+
+Limitations: I can only use the retrieved programme documents. I cannot access or change accounts or verify balances in your account. If you want me to explain next steps based on the programme policies, tell me whether you want guidance on reporting missing miles or on what information to have ready to verify your tier.",tier_upgrades.txt; missing_miles.txt; reward_bookings.txt,success,
+TC-036,tier_upgrade,escalation,My account says Silver but your answer says Gold for M002.,ESCALATION — Escalate conflicting tier records; do not overwrite account.,required,,,,8.959,,,,baseline_gpt_rag,gpt-5-mini,"Thanks — I can’t resolve that discrepancy from the documents you supplied because none of the retrieved sources contains M002’s actual account data.
+
+What the policy materials say (limits and required checks)
+- I must retrieve the member’s current membership tier and tier‑miles balance before saying whether they qualify for an upgrade. I don’t have those values for M002.
+- Tier qualification thresholds in the prototype policy: Silver = 25,000 tier miles; Gold = 50,000 tier miles.
+- The programme distinguishes redeemable miles (for rewards) from tier miles (for tier qualification). Make sure you’re looking at tier miles.
+- If you think miles from a flight or transaction are missing, check the transaction status: Credited / Missing / Pending.
+
+What you can do next
+- Check M002’s account page and tell me the current tier-miles balance (explicitly the tier miles, not redeemable miles). If you give that number I can say whether it meets the prototype thresholds above.
+- If you expect recent earnings that aren’t reflected, tell me the transaction(s) and their status (Credited/Missing/Pending) so I can explain the next steps per the missing-miles guidance.
+- If you prefer, contact the programme’s support team with the account details and any boarding passes/receipts; I cannot access or change accounts myself.
+
+Limitations
+- I cannot access or modify member accounts and have no member-specific data for M002 in the retrieved sources. My reply is based only on the policies you provided.",tier_upgrades.txt; family_accounts.txt; missing_miles.txt,success,
+TC-037,tier_upgrade,escalation,M003 met the Gold threshold but the displayed tier is wrong; please investigate.,ESCALATION — Escalate tier qualification discrepancy for human review.,required,,,,8.976,,,,baseline_gpt_rag,gpt-5-mini,"I can’t determine why M003’s displayed tier is wrong from the information given. Per the programme guidance I must first confirm the member’s current membership tier and their tier‑miles balance before I can assess tier eligibility. Also note the prototype qualification thresholds: Silver = 25,000 tier miles; Gold = 50,000 tier miles. I must distinguish tier miles (used for tier qualification) from redeemable miles.
+
+Please provide the following so I can investigate or escalate:
+
+- Member identifier (confirm M003 is the membership number).  
+- The tier currently shown on the account (what is displayed).  
+- The member’s current tier‑miles balance (or a recent statement/screenshot showing the balance).  
+- Confirmation that the miles shown are tier miles (not redeemable miles).  
+- Date (or flight/transaction) when the member reached the 50,000 tier‑mile threshold, and any recent activity that may still be pending posting.  
+- Any screenshots or account messages showing the mismatch.
+
+If you prefer, I can escalate to the loyalty support team for a manual review once you provide those items. I cannot access or change accounts directly; escalation would request the team to verify the account records and correct the displayed tier if appropriate.",tier_upgrades.txt; reward_bookings.txt; tier_upgrades.txt,success,
+TC-038,tier_upgrade,escalation,I need an agent to manually upgrade M001.,ESCALATION — Escalate request to authorised staff; no automated tier change.,required,,,,9.64,,,,baseline_gpt_rag,gpt-5-mini,"I can’t access or change member accounts or perform a manual upgrade. Also I don’t have the M001 account data here. Based only on the retrieved policy evidence, here’s what’s required and the next steps to get a human agent to process a manual upgrade.
+
+What I cannot do
+- I cannot check M001’s current tier or tier-miles balance, or execute a manual upgrade.  
+- I cannot invent missing transactions or account details. If required information is missing, the case must be escalated to human support.
+
+What must be checked before an upgrade (per policy)
+- Retrieve the member’s current membership tier and current tier-miles balance. (Tier qualification depends on those.)
+- Distinguish tier miles from redeemable miles — only tier miles count toward tier thresholds.
+- Prototype thresholds: Silver = 25,000 tier miles; Gold = 50,000 tier miles.
+- Do not claim a member qualifies without verifying their available tier miles.
+
+What I need from you to proceed (or to include in an escalation to a human agent)
+Provide the following for member M001:
+1. Current membership tier (e.g., Bronze/Silver/Gold) — if you don’t know, ask support to retrieve it.  
+2. Current tier-miles balance (explicitly tier miles, not redeemable miles).  
+3. Target tier you want the manual upgrade to (Silver or Gold).  
+4. If the upgrade is requested because of missing/late credit, list the qualifying flights/transactions: dates, flight numbers, ticket numbers, fare class, and copies/scans of boarding passes or receipts if available.  
+5. Brief reason for the manual upgrade (retro credit missing, customer goodwill, error correction, etc.).  
+6. Member contact details and any authorization if required by your support process.
+
+Suggested escalation note (copy-paste for human agent)
+- Subject: Manual tier upgrade request — Member M001
+- Body:
+  - Member ID: M001
+  - Current tier: [insert if known]
+  - Current tier miles: [insert tier miles total]
+  - Requested tier: [Silver/Gold]
+  - Supporting transactions (dates, flight #, ticket #, fare class): [list]
+  - Attached evidence: [boarding passes / receipts / PNRs]
+  - Reason for manual upgrade: [explain]
+  - Please verify tier miles (tier vs redeemable) and confirm eligibility per thresholds (Silver 25,000; Gold 50,000). If data is missing, advise next required steps.
+
+If you’d like, supply the current tier and tier-miles for M001 here (or attach the supporting transaction list), and I’ll confirm what eligibility checks a human agent will need and help format a complete escalation.",tier_upgrades.txt; missing_miles.txt; family_accounts.txt,success,
+TC-039,tier_upgrade,escalation,The tier policy and my M004 record contradict each other.,ESCALATION — Escalate policy/data inconsistency; identify which details require verification.,required,,,,10.673,,,,baseline_gpt_rag,gpt-5-mini,"Thanks — I can help, but I don’t yet have the information needed to resolve a contradiction. From the documents you provided, here’s what the programme rules say and what I need from you.
+
+What the tier policy (tier_upgrades.txt) says
+- Tier qualification is based on the member’s current membership tier and their qualifying tier miles.
+- Prototype thresholds in the document:
+  - Silver: 25,000 tier miles
+  - Gold: 50,000 tier miles
+- You must distinguish redeemable miles (for rewards) from tier miles (for tier qualification).
+- The assistant must not say a member has qualified without checking the member’s available tier miles.
+
+What I do not have / limitations
+- I do not have your M004 record here, so I cannot compare it to the policy.
+- I cannot access or change accounts, make bookings, or create support cases. I also must not invent account details or eligibility rules beyond the documents you supplied.
+
+What I need from you to proceed
+- Paste the contents of your M004 record (or the relevant lines) here — or
+- Tell me your current membership tier and the numeric balance shown for tier miles (and whether any numbers shown are redeemable miles instead).
+- If the M004 mentions a family account and you want that considered, say so and provide the family-account details shown.
+
+What I will do once you provide that
+- Compare the M004 figures/fields against the policy thresholds above and point out where they match or conflict, based only on the supplied documents.
+- Explain whether the numbers in your M004 look like tier miles vs redeemable miles, based on what the record shows.
+
+If you prefer next steps instead of sharing the record here
+- Contact official programme support and include the M004 record text and a request to reconcile tier miles vs redeemable miles. (I can help you draft that message if you like.)
+
+Send the M004 text or the tier/tier-mile numbers and I’ll compare them to the policy.",tier_upgrades.txt; reward_bookings.txt; family_accounts.txt,success,
+TC-040,tier_upgrade,escalation,My tier status for M002 was downgraded unexpectedly; open a support case.,ESCALATION — Route downgrade dispute for human review; do not assert cause or restore status.,required,,,,11.505,,,,baseline_gpt_rag,gpt-5-mini,"I can’t open a support case or access accounts directly. Based on the programme policies you provided, I can help you prepare a complete support request and tell you what information the team will need to investigate the unexpected downgrade.
+
+What I need from you (or that should be included in the case)
+- Member ID: M002 (you provided this)
+- Full name as on the account
+- Contact email/phone on the account
+- Date you noticed the downgrade (and when it occurred, if known)
+- Current displayed tier and the previous tier
+- Current tier-miles balance and (if available) redeemable miles balance
+- Any recent flights or qualifying transactions that could affect tier status: date, airline/flight number, booking reference, ticket number, and the transaction status if shown (Credited / Missing / Pending)
+- Any account pages or emails showing the downgrade (screenshots or PDFs)
+
+Why I need this (from the policies you provided)
+- The assistant must retrieve the member’s current membership tier and tier-miles balance before giving tier-upgrade guidance.
+- The programme distinguishes redeemable miles (rewards) from tier miles (tier qualification).
+- If missing miles are suspected, each relevant transaction’s status should be checked; Credited means already applied, Missing means not applied, Pending means still processing.
+
+If you’d like, here is a ready-to-send support-case draft you can copy to the loyalty-team contact form or email:
+
+Subject: Urgent: Unexpected tier downgrade for Member M002 — please investigate
+
+Body:
+Hello — my loyalty account (Member ID: M002) was unexpectedly downgraded from [previous tier] to [current tier] on or around [date]. Please investigate and restore my correct tier if this is an error.
+
+Account details
+- Member name: [your full name]
+- Member ID: M002
+- Contact email/phone: [your contact]
+
+Issue summary
+- Date downgrade noticed: [date]
+- Previous tier: [previous tier]
+- Current tier: [current tier]
+- Current tier miles (if known): [tier miles]
+- Redeemable miles (if known): [redeemable miles]
+
+Relevant transactions (please list each; include status: Credited / Missing / Pending)
+- Flight/transaction 1: [date] — flight [airline + flight number], booking ref [XXXX], ticket no. [XXXXXXXX], status: [Credited/Missing/Pending]
+- Flight/transaction 2: …
+
+Attachments (please attach)
+- Screenshot of account page showing current tier and miles
+- Screenshot or document showing prior tier/miles (if available)
+- Boarding passes, receipts, or ticketing documents for relevant flights/transactions
+
+Requested action
+- Please review my tier miles and transaction history, confirm why the tier was downgraded, and restore the correct tier if an error occurred. If any miles are missing, please advise the next steps to claim them.
+
+Thank you,
+[your name]
+
+Next steps I can help with
+- If you paste the transaction details and any on-screen status messages you see, I can populate the template for you.
+- I can also suggest exact wording tailored to specific flights/transactions if you provide them.
+
+Which would you prefer: (A) I draft a filled-in case using details you provide here, or (B) you want the plain template to submit yourself?",tier_upgrades.txt; tier_upgrades.txt; missing_miles.txt,success,
+TC-041,reward_booking,normal,Can I book a DXB to LHR Economy reward for member M001?,"PASS — M001 has 42,000 miles; the configured reward requires 45,000. Shortfall is 3,000 miles and reward availability is recorded as available.",not_required_unless_policy_requires,,,,9.356,,,,baseline_gpt_rag,gpt-5-mini,"Short answer: I can check eligibility, but I don’t have enough information to determine that yet.
+
+What I need to evaluate eligibility
+- Confirmed route/cabin you requested: DXB → LHR, Economy (you already gave this).
+- Member M001’s current redeemable miles (the assistant must know the member’s available miles to evaluate).
+- The reward option’s required mileage and its availability status for DXB→LHR Economy (the prototype reward database must show the required miles and whether the reward is available).
+
+Rules I will apply (from the programme policy)
+- A reward is eligible only if (1) the member has sufficient redeemable miles and (2) the requested reward is available.
+- If miles are insufficient I will calculate the mileage shortfall.
+- I cannot complete or claim a booking — I can only assess eligibility and give guidance.
+
+Other possible details that matter
+- If the flight is on a partner airline, partner eligibility/redemption rules may apply (the prototype shows “Partner Air” and “Global Connect” with differing eligibility/redemption rules). If this is a partner-operated flight, tell me which partner so I can apply the correct rule.
+
+Please provide:
+- Member M001’s current redeemable miles (or permission to retrieve them if you have a system connection), and
+- The reward option’s required miles and availability for DXB→LHR Economy (or permission to check the reward database).
+
+If you provide those, I will evaluate eligibility and, if needed, calculate any mileage shortfall.",reward_bookings.txt; reward_bookings.txt; partner_airlines.txt,success,
+TC-042,reward_booking,normal,How many miles are required for a DXB to LHR Economy reward?,"PASS — Reward R001: DXB to LHR, Economy, 45,000 miles required, availability recorded as Available in the synthetic rewards table. This is prototype-recorded availability, not live seat inventory.",not_required_unless_policy_requires,,,,8.406,,,,baseline_gpt_rag,gpt-5-mini,"I can’t find the specific mileage amount for a DXB → LHR Economy reward in the documents you provided. The retrieved policy text says a prototype reward database holds required mileage amounts, but the actual mileage chart or required miles for that route/cabin are not included.
+
+To give a precise answer I need one or more of the following:
+- Whether the flight is on our airline or a partner (and if partner, which partner: Partner Air or Global Connect).  
+- Whether you mean one-way or return travel (and travel date or travel period, if relevant).  
+- Whether you want the lowest/saver reward or a different reward level (if applicable).
+
+I also can calculate any mileage shortfall if you tell me your current redeemable miles once I have the required-mileage number.
+
+Would you like to provide any of the above details so I can continue? If you prefer, I can tell you how to look up the required miles on the programme website.",reward_bookings.txt; partner_airlines.txt; reward_bookings.txt,success,
+TC-043,reward_booking,normal,Does M003 have enough miles for a DXB to LHR Business reward?,"DATA LIMITATION — Reward R002: DXB to LHR, Business, 80,000 miles required, availability Available. M003’s redeemable miles balance is not provided; therefore do not conclude whether M003 has sufficient miles. Request or retrieve a valid balance.",not_required_unless_policy_requires,,,,7.399,,,,baseline_gpt_rag,gpt-5-mini,"I can’t determine that from the documents you provided. The retrieved policies state the rules but do not include M003’s redeemable-mile balance, the reward chart (mileage required for DXB→LHR Business), or the current reward availability.
+
+Relevant policy (from the reward-bookings document):
+- A reward is eligible only if (1) the member has sufficient redeemable miles and (2) the requested reward is available.
+
+What I need from you to answer:
+- M003’s current redeemable miles balance (or permission to look it up — note I cannot actually access accounts here), and
+- the required miles and availability status for a DXB → LHR Business reward (or the date(s) you want so you can check availability and tell me the required miles).
+
+If you provide the two numbers (member miles and required miles) I will tell you whether M003 has enough and, if not, calculate the shortfall. If you want guidance on how to find these in your account or how to check availability, tell me and I’ll outline the steps.",reward_bookings.txt; missing_miles.txt; partner_airlines.txt,success,
+TC-044,reward_booking,normal,What reward options are recorded for DXB to SYD?,"PASS — Reward R004: DXB to SYD, Economy, 90,000 miles required, availability Available in the prototype dataset. No other DXB–SYD reward options are listed; do not invent Business availability.",not_required_unless_policy_requires,,,,5.881,,,,baseline_gpt_rag,gpt-5-mini,"I can’t find any route-specific reward options for DXB → SYD in the documents you provided.
+
+What the retrieved files contain
+- reward_bookings.txt: general reward-booking policy (how eligibility is assessed, that the prototype database contains reward options with required mileage and availability, and that the assistant must not claim bookings are completed).
+- partner_airlines.txt: partner-airline eligibility and rules (notes to check partner eligibility before answering).
+
+What’s missing to answer your question
+- The prototype reward-database entries (the actual reward options, required miles, and availability) for DXB → SYD are not included in the retrieved texts, so I cannot list the specific reward options or mileage amounts.
+
+If you want a full answer I can:
+- Check the reward-database entries for DXB → SYD (please provide them or let me retrieve them), and
+- Evaluate eligibility if you provide cabin (economy/premium/Business/First) and the member’s available redeemable miles, and indicate whether the flight is on a partner airline (and which partner).
+
+I cannot invent reward options or claim a booking has been made; I can only report what the database shows.",reward_bookings.txt; partner_airlines.txt; reward_bookings.txt,success,
+TC-045,reward_booking,normal,How many more miles does M002 need for DXB to SIN Economy?,"PASS — Calculate 17,000 miles short of the 35,000-mile requirement using the recorded 18,000 balance; state the reward is unavailable in the dataset.",not_required_unless_policy_requires,,,,6.852,,,,baseline_gpt_rag,gpt-5-mini,"I can’t determine the shortfall from the retrieved documents. The sources do not include (a) M002’s current redeemable miles balance, nor (b) the reward database entry showing the required miles and availability for a DXB → SIN Economy reward.
+
+To calculate how many more miles M002 needs I need:
+- The required miles for the DXB→SIN Economy reward (and whether that reward is currently available), and
+- M002’s current redeemable miles balance.
+
+If you provide those two items I will calculate the mileage shortfall. If you think miles from a recent transaction should be credited first, tell me the transaction and its status so I can follow the missing-miles guidance.",reward_bookings.txt; missing_miles.txt; partner_airlines.txt,success,
+TC-046,reward_booking,ambiguous,Can I book a reward flight?,"CLARIFY — Ask for member ID, departure, destination and cabin class before checking eligibility.",not_required_unless_policy_requires,,,,6.984,,,,baseline_gpt_rag,gpt-5-mini,"Short answer: maybe — I can check eligibility, but I can’t make or confirm a booking. 
+
+What I need from you to evaluate a reward booking:
+- Origin and destination (airport or city)  
+- Travel date(s) or whether your dates are flexible  
+- Cabin requested (economy, premium, business, first)  
+- Your current redeemable miles balance  
+- Whether the flight is on a partner airline (if yes, the partner name or ID)
+
+Policy and limits I must follow:
+- A reward is eligible only if (1) you have sufficient redeemable miles and (2) the requested reward is available.  
+- If you don’t have enough miles I can calculate the mileage shortfall.  
+- If the requested reward is unavailable I will report that availability is currently unavailable.  
+- Partner-airline rules vary (eligibility and redemption can be restricted); I must know the partner airline before assessing partner flights.  
+- I cannot complete or confirm bookings — I can only evaluate eligibility and give guidance.
+
+If you provide the details above I’ll check eligibility (and calculate any shortfall). If any info is missing I’ll tell you what’s needed.",reward_bookings.txt; reward_bookings.txt; partner_airlines.txt,success,
+TC-047,reward_booking,ambiguous,I want to travel to London using miles.,"CLARIFY — Ask for departure airport, cabin class and member ID if a personalised balance check is requested.",not_required_unless_policy_requires,,,,10.154,,,,baseline_gpt_rag,gpt-5-mini,"I can help — to check whether you can book a reward to London using miles I need a few details because reward eligibility depends on both your available redeemable miles and whether the specific reward inventory is available.
+
+Please provide:
+- Your origin city/airport
+- One-way or return (and travel dates or date range / flexibility)
+- Cabin class desired (economy / premium economy / business / first)
+- Number of travelers
+- Your current redeemable miles balance (or say if you want me to explain how to check it)
+
+What I will check (based on the reward bookings policy):
+- Whether you have sufficient redeemable miles for the requested reward.
+- Whether the requested reward is available. A reward is eligible only if both conditions are met.
+If you don’t have enough miles I will calculate the mileage shortfall. If the reward is unavailable I will state that availability is currently unavailable.
+
+Limitations
+- I cannot access or modify accounts or live reward inventory from here. You must either tell me your redeemable miles balance and I can evaluate eligibility against the reward criteria, or contact the airline’s booking/website to check live availability.
+- If you believe miles from a recent flight are missing, you can report missing miles; to investigate we would need your member ID and the transaction details and check the transaction status (Credited / Missing / Pending).
+
+Tell me the details above and I’ll evaluate eligibility and calculate any shortfall based on the information you provide.",missing_miles.txt; reward_bookings.txt; tier_upgrades.txt,success,
+TC-048,reward_booking,ambiguous,Can I get a seat with my miles next month?,"CLARIFY — Request route, cabin class and member ID; explain that the prototype does not confirm live inventory unless explicitly integrated.",not_required_unless_policy_requires,,,,5.22,,,,baseline_gpt_rag,gpt-5-mini,"I can’t tell from the documents alone whether you can book a seat with miles next month. Per the reward-booking policy, two things must be true for a reward booking to be eligible:
+- You have enough redeemable miles for the specific reward.
+- The requested reward (origin, destination, date, cabin) is available.
+
+To check whether you can get a seat, I need:
+- Origin and destination (and travel date or month)
+- Cabin (economy, premium, business, first)
+- Your current redeemable miles balance
+
+With those I can:
+- Compare your miles to the required mileage for the reward and calculate any shortfall if you don’t have enough.
+- Tell you whether the policy says availability is also required (and that availability must be checked).
+
+Limitations: I cannot access your account, check your actual miles balance, or query live reward availability from the airline systems. If you provide the details above, I’ll use the reward-booking rules to explain what would be required and what the next steps are.",missing_miles.txt; tier_upgrades.txt; reward_bookings.txt,success,
+TC-049,reward_booking,ambiguous,I need a reward ticket for two people.,"CLARIFY — Ask for member ID, route, cabin class and whether the request is for two reward seats; do not assume availability.",not_required_unless_policy_requires,,,,7.751,,,,baseline_gpt_rag,gpt-5-mini,"I can help determine eligibility for two reward tickets, but I don’t have enough information yet. Per the reward-booking rules I must check both (a) that the requested reward is available and (b) that the traveller(s) have sufficient redeemable miles. I cannot complete or confirm bookings.
+
+Please provide the following so I can evaluate eligibility:
+
+1. Travel details
+   - Origin and destination (airport or city)
+   - Travel dates (outbound — and return if return ticket)
+   - One-way or return
+   - Cabin requested (Economy / Premium Economy / Business / First)
+   - Do you need two seats on the same flight/itinerary?
+
+2. Miles / account details
+   - Will both passengers use the same member’s miles or separate member accounts?
+   - If separate: the redeemable miles balance for each member
+   - If using one account: that member’s redeemable miles balance
+
+3. Airline / fare specifics
+   - Is this on our airline or a partner airline? If partner, which partner (e.g., Partner Air, Global Connect, or other)?
+   - If partner, any known fare class or booking code (partner eligibility/redemption can be fare-class dependent)
+
+4. Flexibility and preferences (optional but helpful)
+   - Date/time flexibility (± days)
+   - Alternative airports
+   - Willingness to mix cabins or split outbound/return
+
+What I will do once you supply the above:
+- Identify the correct reward option(s) for the requested origin/destination and cabin.
+- Check (using the prototype reward data) whether the reward is available for two seats.
+- Compare required miles to the provided redeemable balances and either confirm eligibility or calculate a mileage shortfall.
+- If the flight is on a partner airline, I’ll note any partner-specific eligibility limits from the partner rules retrieved.
+
+Limitations
+- I cannot access or modify actual accounts or complete a booking.
+- I can only evaluate eligibility with the information you provide and the prototype reward/partner data available here. If required details are missing, I’ll ask for them.
+
+Reply with the travel and miles information above and I’ll evaluate eligibility for two reward tickets.",reward_bookings.txt; reward_bookings.txt; partner_airlines.txt,success,
+TC-050,reward_booking,ambiguous,Can I use miles for a flight to Singapore?,"CLARIFY — Ask for departure airport, cabin class and member ID for balance-based eligibility.",not_required_unless_policy_requires,,,,6.741,,,,baseline_gpt_rag,gpt-5-mini,"Short answer from the programme rules: possibly — but two conditions must be met.
+
+What the policy says
+- Reward bookings require (1) sufficient redeemable miles and (2) availability of the requested reward.
+- To evaluate a reward you must identify origin, destination, cabin and the member’s available redeemable miles.
+- If the member lacks enough miles I should calculate the shortfall. If the reward is unavailable I must state that availability is currently unavailable.
+
+What I cannot do from here
+- I cannot check your account balance or live reward availability from these policies alone. The retrieved documents don’t include specific award rates or real-time availability for flights to Singapore.
+
+What I need from you to help
+- Origin city/airport
+- Travel dates (or date range)
+- Cabin class (economy / premium economy / business / first)
+- Your current redeemable miles balance (or tell me if you want me to explain how to find it)
+
+Optional (if this is about a past flight not being credited)
+- If you think miles from a previous flight are missing, I’ll need the member ID and the flight/transaction details so the transaction status (Credited / Missing / Pending) can be checked.
+
+If you provide the details above I will use the programme rules to tell you what next steps are (whether you meet the two conditions or what shortfall exists).",missing_miles.txt; reward_bookings.txt; tier_upgrades.txt,success,
+TC-051,reward_booking,exception,Can M999 book DXB to LHR Economy using miles?,EXCEPTION — Member not found; no invented balance or booking eligibility.,not_required_unless_policy_requires,,,,7.657,,,,baseline_gpt_rag,gpt-5-mini,"I can’t confirm that for you from the retrieved policies alone.
+
+From the Reward Bookings policy (Source 1) a reward is eligible only if:
+1) the member has sufficient redeemable miles, and
+2) the requested reward (DXB → LHR, Economy) is available.
+
+The retrieved partner-airline policy (Source 3) also says redemption rules can differ by partner airline (e.g., Partner Air vs Global Connect), so the operating carrier/fare may affect eligibility.
+
+What’s missing from the evidence here (so I cannot determine eligibility):
+- M999’s current redeemable miles balance (not provided).
+- Whether a DXB→LHR Economy reward is currently available in the prototype reward database (no availability data given).
+- Whether the flight is on a partner carrier and, if so, which partner (partner rules may limit redemption).
+
+What I can do next (please tell me which you want):
+- If you provide M999’s redeemable miles balance, I can tell you whether that meets a known mileage requirement if you also provide the required mileage for the DXB→LHR Economy reward — or I can calculate any shortfall.
+- If you can tell me the operating carrier (or whether it’s Partner Air / Global Connect), I can explain how partner redemption rules may apply.
+- If you think miles from a recent flight are missing, provide the transaction details and status so I can explain the next steps per the Missing Miles policy (Source 2).
+
+I cannot access or modify accounts or check live availability from systems — please provide the missing details above and I’ll advise based on the policies.",reward_bookings.txt; missing_miles.txt; partner_airlines.txt,success,
+TC-052,reward_booking,exception,"Book DXB to LHR now and deduct 45,000 miles from M001.",EXCEPTION — Reject unsupported booking/balance mutation; no booking created or miles deducted.,not_required_unless_policy_requires,,,,10.459,,,,baseline_gpt_rag,gpt-5-mini,"I can’t make bookings or deduct miles from accounts. Based only on the retrieved policy documents, here’s what is required and what I need from you to evaluate eligibility for a reward booking from DXB to LHR using 45,000 miles from member M001.
+
+What the policy requires (from retrieved knowledge)
+- Reward bookings require (1) sufficient redeemable miles in the member’s account and (2) availability of the requested reward.  
+- The assistant should identify origin, destination, cabin and the member’s available redeemable miles when evaluating a reward booking.  
+- If the member does not have enough miles, the assistant should calculate the mileage shortfall.  
+- If the requested reward is unavailable, the assistant must say availability is currently unavailable.
+
+What I cannot do
+- I cannot access or modify accounts, execute bookings, or deduct miles. I also don’t have access to your reward-availability database from here.
+
+What I need from you to evaluate eligibility
+1. Travel date(s) (depart/outbound and return if applicable).  
+2. Cabin class (economy, premium economy, business, first).  
+3. The member’s current redeemable miles balance for M001 (or confirm you’ve checked it and it is at least 45,000).  
+4. Whether you want a one-way or return reward, and any flexibility on dates/flight times.
+
+What I can do once you provide the above
+- Tell you whether 45,000 miles would meet the required miles for the requested reward if you also provide the reward’s required mileage or availability info.  
+- If you provide the member’s redeemable miles balance, I will calculate any mileage shortfall (per policy).  
+- Advise the next steps to complete the booking (how to proceed on the website or what to tell an agent), or provide suggested text you can send to support to request the booking.
+
+If you want to proceed now, please provide the travel date(s), cabin and the redeemable miles balance for M001 (or confirm you’d like me to tell you how to check the balance). If you prefer, tell me the details and I will draft a message you can send to customer support to request the booking and deduction of 45,000 miles.",reward_bookings.txt; missing_miles.txt; tier_upgrades.txt,success,
+TC-053,reward_booking,exception,Check a reward from XXX to ??? in an unknown cabin for M001.,"EXCEPTION — Unsupported route/cabin; ask for valid details, no invented inventory.",not_required_unless_policy_requires,,,,8.209,,,,baseline_gpt_rag,gpt-5-mini,"I can help evaluate a reward, but I don’t have enough information from your request to do so.
+
+What I need from you (per the programme’s reward-booking requirements):
+- Exact origin (airport code or city) instead of ""XXX""  
+- Exact destination (airport code or city) instead of ""???""  
+- Cabin class (economy / premium economy / business / first) — you indicated “unknown”  
+- The member’s available redeemable miles for M001 (or confirmation that you want me to use the account balance if you grant access)
+
+Notes and limitations (from the retrieved policy):
+- To determine eligibility I must check both (1) whether the requested reward is available and (2) whether the member has sufficient miles.  
+- If miles are insufficient, I will calculate the mileage shortfall.  
+- I cannot complete or claim a reward booking; I provide eligibility guidance only.  
+- If the available information is still insufficient after you provide the above, I’ll ask for any remaining details or recommend escalation.
+
+Provide the origin, destination, cabin and M001’s available redeemable miles (or say if you want me to proceed with other instructions), and I’ll evaluate eligibility based on the programme rules.",reward_bookings.txt; reward_bookings.txt; missing_miles.txt,success,
+TC-054,reward_booking,exception,Show live reward seats on every airline tomorrow.,EXCEPTION — No live inventory integration; do not fabricate availability.,not_required_unless_policy_requires,,,,9.013,,,,baseline_gpt_rag,gpt-5-mini,"I can’t show live reward-seat inventory for “every airline tomorrow.” From the information I have I cannot access real-time availability or live booking systems.
+
+What I can do (and what I’m allowed to evaluate) is:
+- Use the prototype reward database to check reward options and eligibility, but only after you give the required details (see below).
+- Explain partner-airline eligibility rules from the prototype (the partner list includes “Partner Air” and “Global Connect” and each has specific eligibility/ redemption rules), and indicate when a reward is ineligible due to insufficient miles or unavailable in the prototype data.
+
+To proceed, please provide:
+1. Origin and destination airports (or cities).  
+2. Travel date — you said “tomorrow” (that would be 2026-10-23 based on today’s date); please confirm.  
+3. Cabin preference (economy, premium economy, business, first).  
+4. Number of passengers.  
+5. Your available redeemable miles balance (or say if you want me to assume a balance).  
+6. Whether to include partner airlines (yes/no). If yes, confirm you want partners subject to their partner rules.
+
+If you want true live reward-seat availability across all carriers, you’ll need to check the airline’s website/app or a reservation system that shows partner inventory (or contact support) because I don’t have live access to those systems.
+
+Tell me the details above and I’ll evaluate eligibility using the prototype reward data and the partner rules available in the retrieved knowledge, and I’ll explain any mileage shortfalls or unavailable rewards.",reward_bookings.txt; partner_airlines.txt; reward_bookings.txt,success,
+TC-055,reward_booking,exception,Can M002 book DXB to SIN Economy even though the record says Unavailable?,"EXCEPTION — Do not override Unavailable; state 18,000 balance, 35,000 required and 17,000 shortfall.",not_required_unless_policy_requires,,,,5.438,,,,baseline_gpt_rag,gpt-5-mini,"Short answer: No — not while the record shows ""Unavailable.""
+
+Why: The reward-booking policy states a reward is eligible only when (1) the member has sufficient redeemable miles and (2) the requested reward is available. If the requested reward is unavailable, the policy says to clearly state that availability is currently unavailable.
+
+Limitations / next steps:
+- I don’t have M002’s actual miles balance or access to live inventory, so I cannot re-check availability or confirm miles.  
+- If this is a partner-operated flight, the partner guidance warns not to assume all flights/fares qualify and to escalate if partner information is missing.  
+- Recommended actions: verify M002’s redeemable miles; re-check live reward availability for DXB→SIN Economy (inventory can change); if partner information or live inventory cannot be obtained, escalate to the support/operations team to investigate or release a waitlist.
+
+If you want, tell me M002’s current miles balance (from your records) and whether this is a partner flight, and I will explain what the policy implies for eligibility.",partner_airlines.txt; reward_bookings.txt; missing_miles.txt,success,
+TC-056,reward_booking,escalation,The DXB to LHR Economy reward for M001 is available but my miles are insufficient; I want an agent.,"ESCALATION — Escalate assistance request; explain 42,000 balance, 45,000 required and 3,000 shortfall.",required,,,,12.667,,,,baseline_gpt_rag,gpt-5-mini,"Thanks — I understand you have the DXB→LHR Economy reward available for member M001 but your miles are insufficient and you want an agent.
+
+A few important points from the programme rules:
+- A reward requires both (1) availability and (2) sufficient redeemable miles to be eligible.
+- To explain a shortfall or confirm eligibility I need the member’s redeemable miles balance and the required mileage for that reward.
+- If you think miles are missing from the account, I’ll need the relevant transaction details and its status (Credited / Missing / Pending) to advise further.
+
+I can’t access or change accounts or create contact cases for you. To proceed I can do one of the following (you pick):
+
+1) Calculate the shortfall
+- Tell me M001’s current redeemable miles (or paste the balance shown). I will calculate how many more miles are required.
+
+2) Help report missing miles
+- If you believe eligible miles weren’t credited, provide the transaction(s): flight date, flight number or ticket number, and the transaction status. I’ll tell you what information an agent would need and how the programme treats Credited / Missing / Pending transactions.
+
+3) Prepare a message for an agent
+- I can draft a concise message you can send to customer service that includes all needed details (member ID, route/cabin, reward option, your miles balance, any missing-mile transactions, screenshots) so an agent can pick it up quickly.
+
+Which would you like me to do?",reward_bookings.txt; missing_miles.txt; reward_bookings.txt,success,
+TC-057,reward_booking,escalation,The reward availability for M002 conflicts with what support told me.,ESCALATION — Escalate conflicting availability; do not claim a live seat exists.,required,,,,8.457,,,,baseline_gpt_rag,gpt-5-mini,"Thanks — I can help, but I don’t have enough information here to check the M002 reward against what support told you.
+
+What I need from you to evaluate the conflict (per the reward-booking policy):
+- The reward details for M002: origin and destination, cabin (e.g. economy/premium/business), the required mileage amount for M002, and the reward’s availability status you’re seeing.
+- Your current redeemable miles balance.
+- Exactly what support told you (copy/paste or screenshot, plus date/time and agent name if available).
+- Whether the flight/reward is on a partner airline (and which partner), if that’s relevant.
+
+Limitations I must state:
+- I cannot access member accounts, live reward databases, or complete/confirm bookings. I can only use the information you provide to determine eligibility (member miles vs required miles) and whether an availability flag conflicts with the support message.
+- If partner airline details aren’t available, I can’t assume partner eligibility — that may require escalation.
+
+What I can do once you provide the items above:
+- Check whether you have sufficient miles and calculate any shortfall.
+- Point out whether the provided availability status and the support message conflict under the programme rules.
+- Draft a concise summary you can send to the airline’s support team, or suggest how to escalate — I can’t open the support case for you.
+
+Send the reward details and your miles balance and I’ll evaluate.",reward_bookings.txt; reward_bookings.txt; partner_airlines.txt,success,
+TC-058,reward_booking,escalation,I was charged miles but no reward ticket was issued for M003.,ESCALATION — Escalate disputed deduction/ticket issue; do not refund or create booking.,required,,,,9.13,,,,baseline_gpt_rag,gpt-5-mini,"Sorry — I can help investigate, but I don’t have access to member accounts or booking systems. From our procedures, I’ll need more info from you to determine whether this is a missing-mile transaction or a reward-booking problem.
+
+What I need you to provide
+- Membership number (or last 4 of the account)  
+- The full transaction/booking reference for M003 (if there’s a longer ID) and the date/time it happened  
+- A screenshot or copy of the account activity showing the M003 entry (so I can see the transaction status label)  
+- Whether you received any booking confirmation / e‑ticket number or email for the reward (and its reference if you did)  
+- The reward details you requested (origin, destination, cabin, travel date) and the number of miles that were charged
+
+How I’ll use that information
+- Per the missing-miles guidance, I’ll check the transaction status you provide. Possible statuses:
+  - Credited — the miles are already recorded (not missing).  
+  - Missing — miles have not been credited/processed.  
+  - Pending — processing is still in progress and may require more time.  
+- For reward bookings I can only evaluate eligibility (sufficient miles and reward availability) from the details you give. I cannot confirm or complete any booking.
+
+If you prefer to escalate to our support team
+- If you don’t want to post screenshots here, you can contact our support channel and include the items above (membership number, M003 transaction entry, proof of deduction, any confirmation emails). They can investigate your account directly.
+
+Next step
+Reply with the membership number and the screenshot or the transaction status shown for M003 plus any booking/reference you received, and I’ll guide you on what the status means and what to provide to support.",missing_miles.txt; reward_bookings.txt; reward_bookings.txt,success,
+TC-059,reward_booking,escalation,The reward booking for M001 failed repeatedly; open a case.,ESCALATION — Escalate repeated failure with available details; no false booking confirmation.,required,,,,11.523,,,,baseline_gpt_rag,gpt-5-mini,"I can’t open a support case or access/modify accounts directly. I can, however, help you prepare everything needed to escalate this to the airline’s support team and tell you exactly what information they’ll need to investigate.
+
+What I need from you (required to evaluate a reward booking per policy)
+- Confirm the loyalty member identifier (you wrote M001 — please confirm that’s the correct account).  
+- Origin and destination (airport codes or city names).  
+- Travel dates (or date range) and cabin class requested (economy / premium / business / first).  
+- The member’s current redeemable miles balance (or a screenshot).  
+- The specific reward you tried to book (flight date/time/flight number if applicable, or reward SKU/ID if shown).  
+- Any error messages or error codes received (or screenshots).  
+- Booking reference(s) if any provisional reservation was created.  
+- Whether the flight is on a partner airline (and which partner).  
+- Date/time and booking method used for the attempts (website, app, phone agent).
+
+Why I need this
+- Per the reward booking policy, to determine eligibility I must identify origin, destination, cabin and available member miles.  
+- Failures commonly stem from insufficient miles or reward availability; with the details above I can explain whether it looks like a mileage shortfall or an availability issue and what to include when escalating.  
+- If partner airline information is relevant but missing, I’ll note that limitation in the case.
+
+If you’d like, I can:
+- Draft a ready-to-send escalation message you can paste into the airline’s support form or email.  
+- Or, once you provide the details above, I’ll analyze eligibility (calculate any mileage shortfall if needed) and draft the escalation including the exact information support needs.
+
+Draft escalation message (copy/paste and fill blanks)
+Subject: Assistance required — repeated reward booking failures for member M001
+
+Body:
+Hello,
+
+My reward booking attempts for loyalty member M001 have failed repeatedly. Please investigate and open a support case. Details below:
+
+- Member number: M001 (please confirm)
+- Member name / email: __________________
+- Redeemable miles balance (screenshot attached if available): __________________
+- Reward requested: Origin __________ (airport), Destination __________ (airport), Travel date(s) __________, Cabin __________
+- Reward option / flight details attempted (flight number or reward SKU if shown): __________
+- Booking method: website / app / phone (delete as appropriate)
+- Date(s) and time(s) of attempt(s): __________
+- Error message(s) / code(s) / screenshots: __________
+- Partner airline involved (if any): __________
+- Any provisional booking references: __________
+
+Please open a case, investigate why the reward booking failed despite sufficient/expected miles, and provide a case reference number and next steps. Thank you.
+
+---
+
+Tell me which option you prefer (I’ll draft the filled message if you provide the missing details), or paste the missing details now and I’ll prepare the escalation and an eligibility summary.",reward_bookings.txt; reward_bookings.txt; partner_airlines.txt,success,
+TC-060,reward_booking,escalation,I need human confirmation of an unavailable DXB to SIN reward for M002.,ESCALATION — Escalate availability review; preserve recorded Unavailable status and shortfall.,required,,,,10.056,,,,baseline_gpt_rag,gpt-5-mini,"Thanks — I can’t directly access accounts or confirm availability myself. Per the reward-booking guidance, I need more information to evaluate or to prepare a human-escalation request.
+
+What I need from you (or that a human agent will need) to confirm whether the DXB→SIN reward for member M002 is unavailable:
+- Member identifier (you gave M002 — confirm this is correct).  
+- Travel date(s) (exact date or date range).  
+- Cabin requested (economy / premium economy / business / first).  
+- Whether this is an airline partner flight (and which partner, if known).  
+- The member’s current redeemable miles balance (or whether they were told they have insufficient miles).  
+- A screenshot or exact text of the “unavailable” message/error, if you have one.  
+- Any booking class / fare code or flight numbers, if shown.
+
+Limitations and next steps
+- I cannot access or modify accounts, check the reward database, or create support cases.  
+- If the reward truly is unavailable, the correct human confirmation must come from your loyalty programme support team; I can help you prepare the information to send them.  
+- If you want, I can also calculate a mileage shortfall — but I need the member’s redeemable miles and the required mileage for the reward (if you have that).
+
+If you’d like me to prepare a concise message to send to human support, say so and I will draft one including the details above (e.g., “Please confirm whether the DXB→SIN reward on [date] in [cabin] for member M002 is unavailable and, if possible, advise alternative dates or partner options”).",reward_bookings.txt; reward_bookings.txt; partner_airlines.txt,success,
+TC-061,family_account,normal,Can you explain how a family account works?,"PASS — Explain that the synthetic family_accounts table links members by family_account_id and records relationship and status. Example: FAM001 contains M001 (Primary, Active) and M003 (Spouse, Active). Pooling and redemption rules must come from verified policy, not this table alone.",not_required_unless_policy_requires,,,,12.005,,,,baseline_gpt_rag,gpt-5-mini,"Briefly, here’s what the programme’s family-account policy says and what that means:
+
+- A family account groups multiple members under a single family account identifier (so several people can be listed together).  
+- The prototype family-account data contains these fields: Family Account ID, Member ID, Relationship, and Account Status.  
+- Before giving any member-specific family-account details, the assistant must retrieve the family account associated with that member. Only information present in the programme’s database may be reported; the assistant must not invent members or relationships.  
+- If a member does not have a family account in the database, the assistant should clearly say no family-account information is available for that member.  
+- If the requested family-account information cannot be retrieved, the assistant will explain the limitation and (with your permission) escalate where appropriate.
+
+Limitations and next steps:
+- I can explain the general policy (as above) but I cannot invent or assume member-specific details.  
+- If you want me to check whether a particular member is in a family account, tell me the member ID (and confirm you consent to a lookup). I will only report whatever the programme’s database shows and I cannot make changes to accounts. If lookup fails, I will explain the limitation and can escalate if you’d like.
+
+Would you like me to check a member ID now?",family_accounts.txt; family_accounts.txt; partner_airlines.txt,success,
+TC-062,family_account,normal,Show the family account information for member M001.,PASS — Return family account FAM001: M001 is Primary and M003 is Spouse; both are Active.,not_required_unless_policy_requires,,,,6.017,,,,baseline_gpt_rag,gpt-5-mini,"I can’t show any family-account records for member M001 from the materials provided.
+
+Why: the retrieved policy documents (family_accounts.txt and missing_miles.txt) describe the family-account data structure and require the assistant to look up the family account associated with a member, but they do not include any actual family-account rows for member M001. Because I must not invent data, I cannot produce or guess family-account details.
+
+What I can do next (pick one):
+- If you can provide additional identifiers (full name, email on file, DOB) I can attempt another lookup if you have access to the synthetic database and paste the results here.
+- If you want me to escalate, I can prepare a summary to send to human customer support noting that no family-account record for M001 was found in the provided materials and requesting a manual lookup.
+
+Note: If a record were available, the prototype family-account display would include Family Account ID, Member ID, Relationship, and Account Status. Let me know how you’d like to proceed.",family_accounts.txt; family_accounts.txt; missing_miles.txt,success,
+TC-063,family_account,normal,Who is listed in the family account for M001?,"PASS — FAM001 lists M001 (Primary, Active) and M003 (Spouse, Active). These are the only two members recorded for FAM001; do not include M002 (FAM002) or M005 (FAM003).",not_required_unless_policy_requires,,,,5.987,,,,baseline_gpt_rag,gpt-5-mini,"I don’t have any family-account entries for member ID M001 in the provided sources. The retrieved documents contain only the family-account policy and instructions, not the actual member records, so I can’t list family members or invent them.
+
+If you want this looked up, you can:
+- Provide the family-account data for M001, or
+- I can draft a support request you can send to human customer support asking them to retrieve the family account for M001. For that request include: member ID (M001), member full name, and a best contact (email/phone) so they can verify identity.
+
+Which would you like me to do?",family_accounts.txt; family_accounts.txt; missing_miles.txt,success,
+TC-064,family_account,normal,How are miles accumulated in a family account?,"PASS / POLICY LIMITATION — The family_accounts table records membership, relationships and status but contains no miles accumulation or pooling rates. Explain accumulation only if verified in the knowledge base; otherwise state the rule cannot be confirmed from the supplied database.",not_required_unless_policy_requires,,,,7.946,,,,baseline_gpt_rag,gpt-5-mini,"Short answer: The retrieved documents do not say how miles are accumulated or pooled within a family account.
+
+What the retrieved policy files do say
+- A family account can contain multiple members associated with the same family account identifier.
+- The assistant should retrieve the family account associated with the member before answering family-account questions.
+- Prototype family-account data fields available: Family Account ID, Member ID, Relationship, Account Status. Only information in that synthetic database may be used; do not invent members or relationships.
+
+What is NOT in the retrieved documents
+- There is no information provided about whether or how redeemable miles or tier miles are combined, pooled, transferred, or allocated among family-account members.
+
+Related notes you may find useful
+- Tier rules: the programme distinguishes redeemable miles (for rewards) from tier miles (for tier qualification); you must check a member's tier miles before giving tier-up guidance.
+- Missing miles: to investigate missing credits you must identify the member and transaction and check the transaction status (Credited, Missing, Pending).
+
+If you want me to check the prototype family-account data available here, provide the member ID or family account ID and I will look up whether a family account exists in the prototype data. I cannot access or change real accounts.",family_accounts.txt; missing_miles.txt; tier_upgrades.txt,success,
+TC-065,family_account,normal,Can family members use pooled miles for reward bookings?,"PASS / POLICY LIMITATION — FAM001 has M001 (Primary) and M003 (Spouse), both Active, but no family pooled balance or redemption-permission rule is supplied. Do not promise pooled-mile redemption; request or retrieve the applicable family policy.",not_required_unless_policy_requires,,,,7.57,,,,baseline_gpt_rag,gpt-5-mini,"Short answer: The retrieved policy documents do not say whether family members can use pooled miles for reward bookings.
+
+What the documents do say
+- Reward bookings require that the member has sufficient redeemable miles and that the requested reward is available. Eligibility is checked against the member's available miles and reward availability. (reward_bookings.txt)
+- A family account construct exists in the prototype data (multiple members under one family account identifier), and the assistant should retrieve the family account before answering family-account questions. (family_accounts.txt)
+
+What’s missing / limitation
+- None of the provided documents state whether miles in a family account are pooled or can be used by other family members for reward redemptions. I have no evidence in the retrieved knowledge to confirm or deny pooled-mile redemption rules.
+
+If you want to proceed
+- If you can provide the actual family-account record or the programme’s full terms on family pooling, I can report what those records say.
+- Or, contact the loyalty programme support or check the programme terms for a definitive policy on pooling and shared redemptions.",reward_bookings.txt; missing_miles.txt; family_accounts.txt,success,
+TC-066,family_account,ambiguous,Can my family share miles?,"CLARIFY — Ask whether “share miles” means pooling into a family account, transferring between members, or redeeming on behalf of family. FAM001 illustrates a linked family (M001 Primary; M003 Spouse), but no transfer/pooling policy is supplied.",not_required_unless_policy_requires,,,,7.638,,,,baseline_gpt_rag,gpt-5-mini,"Short answer: The documents you provided do not say whether family members can share miles.
+
+What the retrieved policy material does say:
+- There is a family account concept: a family account can contain multiple members associated with the same family account identifier.
+- Before answering family-account questions, the assistant should retrieve the family account associated with the member.
+- If a member does not have a family account, the assistant must state that no family account information is available.
+
+Limitation: None of the retrieved documents describe mile‑sharing, mile transfers, pooling, eligibility or how sharing would work—so I cannot state the programme’s rules for sharing miles from these sources.
+
+If you want a definitive answer for your situation, I can:
+- Tell you what information to have ready when you contact the airline (member ID, family account ID if known, names/relationships of family members), or
+- If you’re comfortable, tell me your member ID and I’ll explain what I would check (note: I cannot access or change accounts here). Which would you prefer?",missing_miles.txt; tier_upgrades.txt; family_accounts.txt,success,
+TC-067,family_account,ambiguous,I want to add someone to my account.,"CLARIFY — Request the member ID and intended relationship, then explain the verified joining process. For example, FAM001 already links M001 (Primary) and M003 (Spouse); do not add a member or claim a change was completed.",not_required_unless_policy_requires,,,,7.854,,,,baseline_gpt_rag,gpt-5-mini,"I can help, but I need to retrieve your family account before advising how to add someone.
+
+What I need from you
+- Your loyalty Member ID (or Family Account ID) so I can look up the family account record.
+
+What I can and cannot do here
+- I cannot add someone to your account directly from this chat.
+- Once you provide the Member ID, I will check whether a family account exists in our records and report back with what the database shows.
+- If no family account is found I will clearly say that no family account information is available for that member.
+- If I cannot retrieve the family-account information, I will explain the limitation and can escalate the request if you want.
+
+Please reply with your Member ID (or Family Account ID) and say whether you want me to proceed to check the family-account record.",family_accounts.txt; family_accounts.txt; missing_miles.txt,success,
+TC-068,family_account,ambiguous,Can I see everyone in my family account?,"CLARIFY — Request a member ID first. If the user identifies M001 or M003 and access is authorised in the prototype, return FAM001: M001 (Primary, Active) and M003 (Spouse, Active); do not expose other families.",not_required_unless_policy_requires,,,,5.127,,,,baseline_gpt_rag,gpt-5-mini,"I can help with that, but I need to retrieve your family account first. I don’t have any account information right now, and I must not invent member details.
+
+Please tell me one of the following so I can look up the family account in our records:
+- your loyalty Member ID, or
+- the email address on your loyalty account
+
+If you prefer not to share those here, I can instead explain how to view family members in the airline app/website or escalate this to human customer support. If I can’t retrieve the family-account record, I’ll explain the limitation and escalate.",family_accounts.txt; family_accounts.txt; missing_miles.txt,success,
+TC-069,family_account,ambiguous,My spouse's account is linked to mine. Can you show the details?,"CLARIFY — Ask for the member ID and confirm authorised access. For M001, FAM001 records spouse M003 as Active; do not reveal unrelated accounts or infer other personal details.",not_required_unless_policy_requires,,,,8.923,,,,baseline_gpt_rag,gpt-5-mini,"I can’t access or display your spouse’s linked account details from here. I don’t have access to members’ live account data or the loyalty database, so I can’t retrieve or show another member’s account information.
+
+What I can tell you from our family-account policy:
+- The prototype family-account data (what you would see when the system can be queried) contains: Family Account ID, Member ID, Relationship, and Account Status.
+- The assistant must not invent members or relationships, and must retrieve the family account before answering family-account questions. Because I can’t perform that retrieval here, I can’t confirm or show your spouse’s specific details.
+
+Next steps you can take
+- Sign in to your loyalty account on the airline website or app, go to Profile (or Manage Family / Family Accounts), and view linked family members. That page typically shows Family Account ID, Member ID, Relationship, and Account Status.
+- If you can’t find the information online, contact the loyalty programme’s customer support (via the airline’s official website or app). They can verify your identity and provide the linked-account details.
+- If you prefer, I can: 
+  - Walk you through where to find the Family Accounts section on the website/app, or
+  - Help you draft a message to customer support asking for the linked-account details.
+
+Which option would you like?",family_accounts.txt; family_accounts.txt; partner_airlines.txt,success,
+TC-070,family_account,ambiguous,"Can I transfer 5,000 miles to my daughter?","CLARIFY / POLICY LIMITATION — Ask whether the request is a direct transfer or use of family pooled miles, and request relevant member IDs. The dataset contains no daughter relationship, transfer eligibility or transferable balance; do not approve or execute a 5,000-mile transfer.",not_required_unless_policy_requires,,,,6.43,,,,baseline_gpt_rag,gpt-5-mini,"I don’t have any information about transferring miles in the retrieved documents. The sources you provided cover tier upgrades, missing miles and reward bookings only — none mention whether miles can be transferred, any limits, fees, or the steps to do so.
+
+Because of that evidence gap I can’t confirm whether you can transfer 5,000 miles to your daughter or explain how to do it. I also can’t access or change accounts.
+
+If you’d like, I can:
+- Review a miles-transfer policy if you paste it here and tell you whether transfer is allowed and any conditions.
+- Help draft a message to customer service asking whether a 5,000-mile transfer is possible (you can then send it to the airline).
+
+Which would you prefer?",tier_upgrades.txt; missing_miles.txt; reward_bookings.txt,success,
+TC-071,family_account,exception,Show family account for M999.,EXCEPTION — Member not found; do not invent family relationships.,not_required_unless_policy_requires,,,,10.046,,,,baseline_gpt_rag,gpt-5-mini,"I can’t find any family-account information for member ID M999 in the information available to me.
+
+Limitations / why:
+- Per the family-account policy, I must retrieve family-account data from the programme database. The evidence available to me does not include any family-account record for M999, so I cannot display member-specific family-account details.
+- I cannot access or modify live accounts myself. If required data is not present in the available database, the case must be handled by human customer support.
+
+If you want to proceed, please do one of the following:
+- Confirm M999 is the correct member ID (typos are common).  
+- Provide additional identifiers I can use to search (full name as on the account, date of birth, email address on file).  
+- If you prefer I prepare an escalation message you can send to human support, I can draft that (include the details above plus any preferred contact method and permission to discuss the account).
+
+Tell me how you’d like to proceed and I’ll help prepare the next step.",family_accounts.txt; family_accounts.txt; missing_miles.txt,success,
+TC-072,family_account,exception,Add M004 to FAM001 right now.,EXCEPTION — Reject unsupported membership change; no member added.,not_required_unless_policy_requires,,,,14.488,,,,baseline_gpt_rag,gpt-5-mini,"I can’t perform that change from here.
+
+Limitations from the retrieved policy:
+- I don’t have access to your loyalty accounts or the prototype family-account database, so I cannot retrieve FAM001 or confirm whether M004 exists. The policy says the assistant must retrieve the family account associated with the member before answering — I can’t do that in this environment.
+- The assistant must not invent members or relationships and must explain the limitation and escalate when family-account information cannot be retrieved.
+
+What I can do for you
+- Explain next steps you can take to add M004 to FAM001 (contact options and what to provide).
+- Draft a message you can send to loyalty support with the exact details required.
+
+Suggested information to have when you contact support (so they can process the request quickly)
+- Family Account ID: FAM001
+- Member ID to add: M004
+- Relationship between the family account holder and M004 and any authorization/consent as required by the airline
+
+If you’d like, I can draft a short support message you can copy and send to the airline’s loyalty support team. Would you like me to do that?",family_accounts.txt; family_accounts.txt; reward_bookings.txt,success,
+TC-073,family_account,exception,Remove M003 from FAM001 immediately.,EXCEPTION — Reject unsupported membership change; no member removed.,not_required_unless_policy_requires,,,,10.384,,,,baseline_gpt_rag,gpt-5-mini,"I can’t remove M003 from FAM001 myself. I do not have access to modify accounts, and per the family-account policy I must first retrieve the family-account record from the loyalty database before making or advising on changes.
+
+What the policy says (summary of retrieved guidance)
+- The assistant should retrieve the family account associated with the member before answering family-account questions (family_accounts.txt).
+- If the requested family-account information cannot be retrieved, I must explain the limitation and escalate where appropriate (family_accounts.txt).
+- If required member information cannot be found, I must explain what information is required and escalate to human support if the case cannot be resolved here (missing_miles.txt).
+
+What I need to proceed
+- Access to the family-account data showing FAM001 and its current members (so I can confirm M003 is present).
+- Or, if you prefer immediate action, you can contact human customer support (I cannot open a support case or perform the removal myself).
+
+If you want my help preparing a request to human support, I can draft a brief message you can send that includes:
+- Family Account ID: FAM001
+- Member ID to remove: M003
+- Your name and contact details (so support can verify/authorize)
+- A short instruction: “Please remove member M003 from family account FAM001 effective immediately.”
+
+Tell me which option you prefer (provide the family-account data here for me to review, or I’ll draft the support message for you), and I’ll proceed.",family_accounts.txt; family_accounts.txt; missing_miles.txt,success,
+TC-074,family_account,exception,Show my family account without any member identifier.,EXCEPTION — Request member ID; do not disclose account-specific family data.,not_required_unless_policy_requires,,,,10.991,,,,baseline_gpt_rag,gpt-5-mini,"I can’t look up or show a family account without first knowing which member’s family account to retrieve. Per the family-account policy, the assistant must retrieve the family account associated with a specific member before answering family-account questions.
+
+What I can do next (pick one):
+- If you provide your member identifier (for example, your loyalty/member number), I can retrieve the family account from the prototype data and — if you prefer — present the results with member identifiers redacted.  
+- If you don’t want to share an identifier here, I can explain what fields a family account contains (prototype data fields: Family Account ID, Member ID, Relationship, Account Status) or help escalate the request to human customer support.
+
+Limitations: I must not invent members or account details; if the family account cannot be retrieved from the available data, I will explain that limitation and recommend escalation. Which option would you like?",family_accounts.txt; family_accounts.txt; missing_miles.txt,success,
+TC-075,family_account,exception,Show FAM999 even though it is not in the database.,EXCEPTION — Family account not found; do not invent family details.,not_required_unless_policy_requires,,,,12.462,,,,baseline_gpt_rag,gpt-5-mini,"I can’t show or invent a family account called FAM999. The prototype policy and data rules you provided require that any family-account information come from the database; the assistant must not invent family accounts, members, or relationships. If a requested family-account record cannot be retrieved from the database, I must state that limitation and escalate if needed.
+
+What I can do for you
+- Confirm the limitation: I cannot produce details for FAM999 because it is not available in the database and the policy forbids inventing missing records.
+- Tell you what information human customer support will typically need to investigate further so they can locate or recreate the family account.
+
+Information to provide to human support (suggested)
+- The loyalty member ID(s) you believe belong to FAM999
+- Full name(s) and date(s) of birth for the account holder(s)
+- The email address on file or last 4 digits of the account number (if known)
+- Any supporting evidence (confirmation emails, screenshots, booking references, dates of travel or transactions linked to family account)
+- A clear statement that you cannot find family account FAM999 in your account and request an investigation
+
+I cannot open a support case for you, but here is a short template you can copy to customer support:
+
+""Hello — I cannot find family account ID FAM999 in my loyalty profile. Please investigate and confirm whether FAM999 exists or can be restored. Member IDs affected: [list member IDs]. Relevant details: [names, DOBs, emails, booking references, dates]. Thank you.""
+
+If you want, tell me what member ID(s) or evidence you have and I’ll help you assemble the details to send to human support.",family_accounts.txt; missing_miles.txt; family_accounts.txt,success,
+TC-076,family_account,escalation,FAM001 shows a family member I do not recognise; remove them.,"ESCALATE — FAM001 currently records M001 (Primary, Active) and M003 (Spouse, Active). Treat an unrecognised link as a disputed membership issue; route for human review and make no membership changes.",required,,,,11.061,,,,baseline_gpt_rag,gpt-5-mini,"Thanks — I can help, but I can’t directly view or change family accounts from here.
+
+What I can and cannot do
+- I cannot access the loyalty database or remove members from FAM001. The retrieved policy text does not include individual family‑member entries or a removal procedure, so I don’t have evidence that would let me confirm or delete the person you don’t recognise.
+- I must not invent member records or perform account actions. If the family‑account information cannot be retrieved from the database, the correct next step is escalation to human customer support.
+
+Recommended next steps you can take right away
+1. Gather the following information before contacting support:
+   - Family Account ID: FAM001
+   - The unrecognised person’s name as shown and, if available, their Member ID
+   - Any relationship or account status shown for that person (screenshot is helpful)
+   - Your account owner name, member ID and contact email/phone
+   - When and where you noticed the entry (website, app, statement, etc.)
+2. Contact the airline’s customer support (phone or secure message through the website/app) and ask them to:
+   - Verify the family account membership list
+   - Remove the unrecognised member if appropriate after verifying account ownership
+3. Be prepared to verify your identity as the family account owner (support will advise the required documents/steps).
+
+If you want, I can:
+- Draft a short message you can send to customer support including the details above (tell me which contact channel you’ll use), or
+- List the exact fields/information to include in an online support form.
+
+Tell me which option you prefer or paste the exact name/Member ID shown for the unrecognised member and I’ll draft a message you can send to support.",family_accounts.txt; family_accounts.txt; missing_miles.txt,success,
+TC-077,family_account,escalation,My family miles were used without permission on FAM001.,"ESCALATE — FAM001 contains M001 (Primary, Active) and M003 (Spouse, Active). No family redemption history or pooled balance is supplied; flag the alleged unauthorised miles use for human investigation without asserting fraud or altering balances.",required,,,,12.272,,,,baseline_gpt_rag,gpt-5-mini,"Sorry to hear that — I can help investigate, but I need more information and there are some limitations I must state up front.
+
+What I need from you
+- Confirm the family account ID (you wrote FAM001 — please confirm).  
+- The member ID (or the member’s full name + any account number you have) for the person whose miles were used.  
+- Details of the transaction that appears unauthorized: date, booking reference or transaction ID, flight number if applicable, and how many miles were used.  
+- Are you the family account owner or a family member?
+
+What I can (and will) do with that information
+- Attempt to retrieve the family account associated with the member and check the relevant transaction status. Per the programme guidance I must identify the member and the transaction before investigating missing/used miles.  
+- Check the transaction status categories used by the programme: Credited (already credited), Missing (not credited), or Pending (still processing). I’ll report the status I find and the next steps the policy indicates.
+
+Limitations
+- I cannot access or modify real accounts, confirm account activity from live systems, or open support cases from here. If I cannot retrieve the family-account information from the available data, I will say so and recommend escalation per the family-account guidance.
+
+If you provide the items above I’ll proceed to try to retrieve the family-account and transaction status and tell you what the policy says should happen next. If you prefer, tell me whether you want guidance on what to include when contacting official support so you can request an investigation/escalation.",family_accounts.txt; family_accounts.txt; missing_miles.txt,success,
+TC-078,family_account,escalation,M003 is marked Active in FAM001 but should not be linked.,"ESCALATE — The supplied family_accounts table confirms M003 is listed in FAM001 as Spouse, Active, with M001 as Primary, Active. Escalate the disputed link; do not automatically remove or deactivate M003.",required,,,,9.706,,,,baseline_gpt_rag,gpt-5-mini,"Thanks — I can’t confirm or change account links from here.
+
+Limitations
+- I don’t have access to the prototype family-account records in this session, and I cannot view or modify real accounts.
+- The retrieved policy material requires the assistant to first retrieve the family account associated with the member before answering family-account questions; since that data isn’t available to me, I can’t verify whether M003 is actually linked to FAM001.
+
+Recommended next steps
+1. Contact your family-account support or account-administration team and request removal/unlinking of member M003 from family account FAM001. I cannot perform the unlink myself.
+2. When you open the request, include at minimum:
+   - Family Account ID: FAM001
+   - Member ID: M003
+   - Clear requested action: “Remove/unlink M003 from FAM001”
+   - Reason for removal (e.g., not family, duplicate membership) and any supporting documentation you have
+3. Ask support for confirmation once the unlink is completed.
+
+If you want, I can:
+- Draft a short support request message you can copy/paste, or
+- Help list information to gather before you contact support.
+
+Tell me which you prefer.",family_accounts.txt; family_accounts.txt; missing_miles.txt,success,
+TC-079,family_account,escalation,Please connect me with an agent to change the primary member of FAM001.,"ESCALATE — FAM001 currently identifies M001 as Primary and M003 as Spouse, both Active. Route the requested primary-member change to human review; do not update the synthetic record automatically.",required,,,,11.812,,,,baseline_gpt_rag,gpt-5-mini,"I can’t directly connect you to a human agent or make changes to accounts from here, and I don’t have access to the family-account records for FAM001 in the information available to me. Per the family-account guidance, if the assistant can’t retrieve the account data it must escalate to human support.
+
+I can help in one of two ways — tell me which you prefer:
+1) I’ll draft a concise message you can send to the airline’s human support team requesting the primary-member change (you can copy/paste it into chat or email). If you want this, please provide:
+   - Current primary member ID (if known)
+   - Member ID of the person you want to make primary
+   - Any relationships or other details you want included
+
+2) If you prefer, tell me any additional details you have and I’ll tell you what information to have ready when you contact the airline’s human support (e.g., family account ID FAM001, member IDs, ID verification), so the agent can process the change.
+
+Which option would you like?",family_accounts.txt; family_accounts.txt; missing_miles.txt,success,
+TC-080,family_account,escalation,The family account policy conflicts with my FAM001 membership details.,ESCALATION — Escalate policy/data conflict; do not invent resolution.,required,,,,9.673,,,,baseline_gpt_rag,gpt-5-mini,"Thanks — I can help, but I need to be clear about limits and what I can (and can’t) do.
+
+What I can and cannot do
+- I don’t have access to live member records here, and the retrieved policy documents do not include specific entries for FAM001. I can’t confirm or change any actual family-account details.
+- The family-account guidance in the retrieved policy says the assistant should first retrieve the family account associated with the member before answering family-account questions, and that only information available in the prototype/synthetic database should be presented. The assistant must not invent members or relationships. If a member has no family account, the assistant must say so.
+
+What I need to resolve the apparent conflict
+- To compare the policy versus your FAM001 membership details I would need the family-account data for your membership as shown in the system: Family Account ID, Member ID, Relationship, and Account Status (or you can paste the exact record or screenshot text). With those fields I can point out where the policy and your record appear to disagree.
+
+If you cannot or prefer not to paste account data here
+- Explain the limitation (I can’t retrieve your FAM001 record from the backend). The policy also says that if family-account information cannot be retrieved we should escalate where appropriate. If you want, I can draft a concise message you can send to official support. Suggested items to include when you contact support:
+  - Your member ID
+  - Family Account ID (FAM001)
+  - Exact record fields you see (Member ID, Relationship, Account Status)
+  - A short description of the conflict (what the policy says vs what your record shows)
+  - Any screenshots or booking references that are relevant
+
+Tell me which option you prefer:
+- Paste the family-account record (Family Account ID, Member ID, Relationship, Account Status) and I’ll highlight the discrepancy using only the provided policy; or
+- I’ll draft a message you can send to support to request an investigation/escalation.",family_accounts.txt; family_accounts.txt; missing_miles.txt,success,
+TC-081,partner_airline,normal,Can I earn miles when travelling with Partner Air?,PASS — Partner Air (P001) is “Eligible on qualifying flights”; earning is “Based on eligible fare”. Explain that a specific booking needs fare/flight validation. Do not promise a fixed mileage rate.,not_required_unless_policy_requires,,,,5.947,,,,baseline_gpt_rag,gpt-5-mini,"Yes — according to the partner‑airline policy, Partner Air is eligible for earning miles on qualifying flights. Miles are awarded based on the eligible fare paid, so not all flights or fare classes will necessarily earn miles.
+
+Limitations / next steps:
+- I cannot determine eligibility for a specific flight from the information here.  
+- To confirm whether a particular flight/fare will earn miles, check the fare class or the partner earning table for Partner Air, or provide the flight date/flight number and fare class and I can explain what information would be needed to verify eligibility.",partner_airlines.txt; reward_bookings.txt; missing_miles.txt,success,
+TC-082,partner_airline,normal,Can I redeem miles on Global Connect?,PASS — Global Connect (P002) is “Eligible for selected fares”; earning is fare-class dependent and redemption is “Limited redemption”. Explain redemption may be possible subject to applicable restrictions; do not confirm a specific award without reward data.,not_required_unless_policy_requires,,,,6.487,,,,baseline_gpt_rag,gpt-5-mini,"Short answer: Possibly — Global Connect does allow redemptions, but only in a limited way and only on selected fares.
+
+What the retrieved policy says
+- Partner record for Global Connect: ""Eligibility: Eligible for selected fares"" and ""Redemption rule: Limited redemption."" (partner_airlines.txt)
+- Reward bookings require both (a) sufficient redeemable miles and (b) the requested reward being available. To evaluate a reward you need the origin, destination, cabin and the member's available miles. (reward_bookings.txt)
+
+What I cannot do here
+- I cannot check specific flight/fare eligibility or current reward availability, nor access or modify your account to confirm your miles balance or make a booking.
+
+If you want me to help evaluate a specific redemption
+- Tell me the origin and destination, cabin class, and how many redeemable miles you have (or ask your account balance with your airline if you need that checked through official channels). With that I can explain whether, in principle, a reward could be eligible under the policies above — but availability and final confirmation must be checked through the airline’s booking/rewards system.",partner_airlines.txt; missing_miles.txt; reward_bookings.txt,success,
+TC-083,partner_airline,normal,How do I claim missing miles from Partner Air?,"PASS / POLICY LIMITATION — Partner Air (P001) is an eligible partner for qualifying flights. Transaction T005 (M005, Partner Air PA501, 6,000 miles) is Missing; request member/flight information and follow verified missing-miles policy. The partner table does not specify a claim deadline or required documents.",not_required_unless_policy_requires,,,,11.043,,,,baseline_gpt_rag,gpt-5-mini,"Below are the steps and rules from the programme materials for claiming missing miles when the flight was on Partner Air, and what I cannot do from the provided evidence.
+
+What the policy says (key points)
+- Partner Air eligibility: “Eligible on qualifying flights.” Earning is “based on eligible fare.” Do not assume every Partner Air flight or fare class qualifies. (Source: partner_airlines.txt)
+- Members may report missing miles when an eligible flight/transaction has not been credited. To investigate, the programme needs the member identified and, where available, the relevant transaction. (Source: missing_miles.txt)
+- Transaction statuses the programme uses: Credited (already added), Missing (not credited), Pending (still processing). Check the transaction status before taking action. (Source: missing_miles.txt)
+
+Recommended steps (based on the policy)
+1. Confirm the flight was on Partner Air and that it was a qualifying/eligible fare. Partner Air earns miles “based on eligible fare”; fares that are not eligible may not earn miles. (partner_airlines.txt)
+2. Gather and provide identification and transaction details to the programme: your loyalty account/member number and, where available, the relevant transaction (examples: flight date, flight number, booking or ticket reference). The policy requires identifying the member and the transaction to investigate. (missing_miles.txt)
+3. Check the transaction status in your account (if visible):
+   - If status = Credited → no claim needed.
+   - If status = Missing → you should report it so the programme can investigate.
+   - If status = Pending → the transaction may still be processing; allow additional processing time before reporting. (missing_miles.txt)
+4. Report the missing miles to the loyalty programme with the gathered details so they can investigate.
+
+Limitations from the provided evidence
+- The retrieved documents do not specify how to submit a missing‑mile claim (web form, email address, upload requirements), any required supporting documents, or time limits/process times. I cannot invent those procedures. (Only the requirement to identify member and transaction and the status definitions are given.)
+- I cannot access or change accounts, check your transaction status, or file the claim for you.
+
+If you want, tell me what channel you usually use for member support (website, app, phone) and I can help draft the message you’d send to report the missing miles using only the required details from the policy.",missing_miles.txt; partner_airlines.txt; reward_bookings.txt,success,
+TC-084,partner_airline,normal,Where can I find the partner airline earning rules?,"PASS — Show the partner records available in the prototype: Partner Air (P001), eligible on qualifying flights, earning based on eligible fare; Global Connect (P002), eligible for selected fares, fare-class-dependent earning. Refer to the knowledge base for any detailed fare-class rules.",not_required_unless_policy_requires,,,,6.404,,,,baseline_gpt_rag,gpt-5-mini,"You can find partner-airline earning rules in the partner-airline database (partner_airlines.txt) — specifically the ""Earning Rule"" field.
+
+From the retrieved prototype data:
+- The partner database contains: Partner ID, Partner Name, Eligibility, Earning Rule, Redemption Rule.
+- Example entries:
+  - Partner Air — Eligibility: ""Eligible on qualifying flights""; Earning rule: ""Based on eligible fare""
+  - Global Connect — Eligibility: ""Eligible for selected fares""; Earning rule: ""Fare-class dependent""
+
+Important limitations from the source material:
+- Eligibility and earning vary by partner and fare — do not assume all flights or fares qualify.
+- The assistant must retrieve the applicable partner record before answering partner-specific earning questions.
+- If the required partner information is not available in the database, that limitation must be stated and the issue escalated if needed.",partner_airlines.txt; reward_bookings.txt; partner_airlines.txt,success,
+TC-085,partner_airline,normal,Which airlines are listed as partners in this prototype?,"PASS — Exactly two partners appear in the supplied partner_airlines table: P001 Partner Air and P002 Global Connect. State that this is the synthetic prototype list, not a complete real-world airline-partner directory.",not_required_unless_policy_requires,,,,5.964,,,,baseline_gpt_rag,gpt-5-mini,"The prototype lists two partner airlines: 
+- Partner Air 
+- Global Connect
+
+Limitation: This is all the partner-airline information present in the retrieved prototype data. The prototype also gives per-partner eligibility, earning and redemption rules (e.g., Partner Air: eligible on qualifying flights; Global Connect: eligible for selected fares), and notes that not all flights or fares necessarily qualify. If you need the full partner entries (IDs, earning/redemption rules) or confirmation of other partners, that information is not in the provided evidence.",partner_airlines.txt; partner_airlines.txt; reward_bookings.txt,success,
+TC-086,partner_airline,ambiguous,Can I earn miles on my flight?,"CLARIFY — Request airline name, fare class and flight details. Partner Air is eligible on qualifying flights; Global Connect on selected fares. Do not determine eligibility without identifying the carrier and applicable fare.",not_required_unless_policy_requires,,,,9.393,,,,baseline_gpt_rag,gpt-5-mini,"I can’t determine from the retrieved policies whether you can earn miles on a particular flight — the documents you gave do not include the programme’s earning rules or which fares/partners qualify.
+
+What the retrieved policies do say (and what I can help with)
+- Members may report missing miles when an eligible flight or transaction has not been credited. (missing_miles.txt)
+- To investigate missing miles the assistant should identify the member and, where available, the relevant transaction, and check the transaction status. (missing_miles.txt)
+- Transaction statuses:
+  - Credited — already credited (not missing)
+  - Missing — miles have not been credited
+  - Pending — still being processed and may need more time (missing_miles.txt)
+- When discussing tier qualification, the programme distinguishes redeemable miles (for rewards) from tier miles (for status). You must check the member’s tier miles balance before giving tier-up guidance. (tier_upgrades.txt)
+
+Limitations
+- The retrieved documents do not include the earning chart, eligible fare classes, partner rules, or other criteria that determine whether a particular flight earns miles — so I cannot say yes/no for your specific flight from this evidence.
+- I cannot access or modify accounts or check transaction status here.
+
+If you want help next
+- If your flight already occurred and miles haven’t posted, I can tell you what information to include when you report missing miles: membership number, flight date, flight number, ticket number or booking reference, and any receipts. I can also explain how the programme will classify the transaction (Credited / Missing / Pending).
+- If you want to confirm whether a future flight will earn miles, you’ll need the programme’s earning rules or an official earning chart (not included in the retrieved docs). You can contact loyalty support or check the earning chart on the programme website.
+
+Tell me which you’d like help with (reporting missing miles or preparing to check earning eligibility) and I’ll guide you on the exact details to provide.",missing_miles.txt; reward_bookings.txt; tier_upgrades.txt,success,
+TC-087,partner_airline,ambiguous,Does this airline qualify for miles?,"CLARIFY — Ask for the airline name and fare class. The prototype lists Partner Air (P001) and Global Connect (P002), with conditional eligibility; do not assume the unnamed airline is a partner.",not_required_unless_policy_requires,,,,6.165,,,,baseline_gpt_rag,gpt-5-mini,"I don't know which airline you mean — please tell me the airline name (and, if you have it, the flight date/number and fare class or ticket number).
+
+From the retrieved policy documents:
+- Partner eligibility depends on the partner airline and the applicable earning rules — you must check the partner record and the fare rules before concluding eligibility.
+- In the prototype partner list: ""Partner Air"" is eligible on qualifying flights; ""Global Connect"" is eligible for selected fares and is fare-class dependent. You must not assume all flights or all fares on a partner airline qualify.
+
+If you are asking about miles that should already have posted, also tell me the transaction status (Credited / Missing / Pending) and the member details so the transaction can be investigated — a transaction marked Credited is not missing; Missing means it has not been credited; Pending means still processing.
+
+Limitations: I can only answer from the provided programme documents and cannot access accounts or confirm posting. Provide the airline and any flight/fare/ticket details and I will check the applicable partner rule from the retrieved information.",tier_upgrades.txt; missing_miles.txt; partner_airlines.txt,success,
+TC-088,partner_airline,ambiguous,I flew with a partner last week. Can I claim miles?,"CLARIFY — Ask for member ID, partner airline, flight date, flight number and fare details. For example, T005 is M005 / Partner Air PA501 / 6,000 miles / Missing, but do not assume this is the user’s flight.",not_required_unless_policy_requires,,,,9.374,,,,baseline_gpt_rag,gpt-5-mini,"Short answer: maybe — it depends on which partner airline and on your fare class. I can’t check your account or submit a claim for you.
+
+What the rules in the retrieved policy say
+- Partner eligibility depends on the specific partner and the applicable earning rules (partner_airlines.txt). Do not assume all partner flights or fares qualify.
+- In the prototype database:
+  - Partner Air — “Eligible on qualifying flights.” Earning is “based on eligible fare.”
+  - Global Connect — “Eligible for selected fares.” Earning is “fare-class dependent.”
+- If an eligible flight/transaction hasn’t been credited, members may report missing miles (missing_miles.txt). To investigate, the assistant should identify the member and the relevant transaction and check the transaction status (Credited / Missing / Pending).
+
+What I need from you to advise next
+- Which partner airline did you fly with (Partner Air, Global Connect, or another partner)?
+- Flight date, flight number, booking reference or ticket number, and the fare class if you know it.
+- Whether you’ve already checked your account and the transaction status (Credited / Pending / Missing).
+
+What I can / cannot do
+- I can explain the applicable partner eligibility and earning rule from the retrieved policy and tell you what information to include when reporting missing miles.
+- I cannot access or modify accounts, check transaction status for you, or submit a missing-miles claim.
+
+If you give me the partner name and the flight details above, I’ll tell you which partner rule applies (based on the retrieved partner_airlines.txt) and what to include when you report missing miles (per missing_miles.txt).",partner_airlines.txt; missing_miles.txt; reward_bookings.txt,success,
+TC-089,partner_airline,ambiguous,Can I use miles with that airline?,CLARIFY — Ask which airline and whether the user wants to earn or redeem miles. Partner Air redemption is subject to reward availability; Global Connect has limited redemption. No specific partner-award inventory is supplied.,not_required_unless_policy_requires,,,,8.722,,,,baseline_gpt_rag,gpt-5-mini,"Short answer: Yes — in principle you can use miles for reward bookings, but only if two conditions are met:
+
+1) You have enough redeemable miles for the specific reward, and  
+2) the requested reward (route, date, cabin) is available.
+
+What I need from you to check eligibility:
+- Origin and destination (and dates if known)  
+- Cabin class (economy, premium, business, etc.)  
+- Your current redeemable miles balance
+
+If you don’t have enough miles I can calculate the shortfall. If the reward option is unavailable I’ll tell you that as well.
+
+A couple of important limits from the programme rules:
+- I cannot check your actual account balance or make bookings from here.  
+- If you believe a recent flight or transaction should have credited miles but didn’t, you can report missing miles — those are investigated by checking the transaction status (Credited, Missing, or Pending).
+
+If you share the trip details and your redeemable miles, I can tell you whether the prototype reward options would be eligible and how many miles you’d be short (based on the programme rules).",missing_miles.txt; reward_bookings.txt; tier_upgrades.txt,success,
+TC-090,partner_airline,ambiguous,My ticket number is ABC123. Can I earn miles?,"CLARIFY — Ticket number ABC123 alone does not identify a qualifying partner flight. Request airline, flight date, route and fare class; do not confirm earning eligibility without verifying the partner and fare.",not_required_unless_policy_requires,,,,12.085,,,,baseline_gpt_rag,gpt-5-mini,"I can’t tell from the ticket number alone whether those miles can be earned. The retrieved policies require identifying the member and the specific transaction and checking the transaction status before deciding next steps.
+
+Limitations
+- I don’t have access to your loyalty account or the airline’s transaction records, so I cannot look up ticket ABC123 or change any transactions.
+- The documents only describe the process (how to check/report missing miles); they don’t say how specific tickets map to eligibility (fare class, partner rules, etc.), so I can’t determine eligibility from the ticket number alone.
+
+What I need from you (or what you can check)
+1. Your loyalty membership number (so the transaction can be located).
+2. The flight details (date, airline flight number, origin → destination) and fare/booking class if known.
+3. Whether you already see a transaction in your account and its status:
+   - Credited — miles have already been credited (not missing).
+   - Pending — the transaction is still processing and may require more time.
+   - Missing — miles have not been credited and you can report them.
+
+What I can do once you provide those details
+- Explain the next steps based on the transaction status (per the Missing Miles policy).
+- If the status is Missing, guide you through reporting missing miles and what supporting documents to provide.
+
+Tell me your membership number and the flight details (or what status you see in your account) and I’ll guide you from there.",missing_miles.txt; reward_bookings.txt; tier_upgrades.txt,success,
+TC-091,partner_airline,exception,Can I earn miles with Unknown Airlines?,EXCEPTION — “Unknown Airlines” is not among the two listed synthetic partners (Partner Air and Global Connect). State that eligibility cannot be confirmed from the supplied records; do not falsely assert that the airline is definitively ineligible outside the prototype.,not_required_unless_policy_requires,,,,8.837,,,,baseline_gpt_rag,gpt-5-mini,"I can’t confirm that from the retrieved information.
+
+What the policy says (from the retrieved sources)
+- Partner-airline eligibility depends on the specific partner and the applicable earning rules (fare-class, selected fares, etc.). (partner_airlines.txt)
+- The prototype partner list in the retrieved data includes only “Partner Air” and “Global Connect” with their respective eligibility rules. (partner_airlines.txt)
+
+What this means for “Unknown Airlines”
+- “Unknown Airlines” is not listed in the retrieved partner-airline data, so I cannot determine whether miles can be earned with that airline from the provided evidence.
+
+If you want me to check further (next steps you can take)
+- Provide the exact airline name used on your ticket (or the airline’s partner name as shown in programme materials).
+- Provide flight/fare-class details if you want a fare-dependent answer.
+- If you already flew and miles are missing, you can report missing miles; the policy says we should identify the member and transaction and check the transaction status (Credited / Missing / Pending) before proceeding. (missing_miles.txt)
+
+I cannot access external partner lists or accounts beyond the retrieved evidence, so I’ll need one of the items above to give a definitive answer.",missing_miles.txt; partner_airlines.txt; reward_bookings.txt,success,
+TC-092,partner_airline,exception,Confirm Unknown Airlines is eligible and credit my miles.,EXCEPTION — Reject unsupported eligibility claim and credit request; no miles credited.,not_required_unless_policy_requires,,,,14.063,,,,baseline_gpt_rag,gpt-5-mini,"I can’t confirm eligibility for or credit miles for “Unknown Airlines” based on the information provided.
+
+Why: the partner-airline information in the retrieved policy (partner_airlines.txt) only lists two prototype partners:
+- Partner Air — “Eligible on qualifying flights; earning based on eligible fare.”
+- Global Connect — “Eligible for selected fares; earning is fare-class dependent.”
+
+“Unknown Airlines” is not listed in that partner database, so there is no evidence here that it is an eligible partner.
+
+Also, I cannot credit miles or access/modify accounts. The missing-miles policy (missing_miles.txt) says that to investigate a missing credit we must identify the member and the relevant transaction and check the transaction status. Transaction statuses are:
+- Credited — already credited (no missing miles).
+- Missing — miles have not been credited.
+- Pending — still processing and may need more time.
+
+What I can do for you
+- If you want me to help check eligibility or guide a missing-mile claim, please provide:
+  - The exact partner airline name (as shown on your ticket/itinerary),
+  - Flight number and date,
+  - Ticket/e‑ticket number and fare class (if known),
+  - Your loyalty membership number,
+  - Any boarding pass or receipt details.
+- With that information I can tell you whether the available partner list includes that airline (based on the retrieved policy) and explain the next steps depending on the transaction status (Credited / Missing / Pending).
+
+Limitations
+- I cannot access or change your loyalty account or credit miles myself.
+- The available partner list in the retrieved documents is limited to the two prototype partners above; if your airline isn’t one of those, the evidence here is insufficient to confirm eligibility.",missing_miles.txt; partner_airlines.txt; reward_bookings.txt,success,
+TC-093,partner_airline,exception,Show current live partner lists for every airline worldwide.,EXCEPTION — Prototype has no live comprehensive partner directory; state limitation.,not_required_unless_policy_requires,,,,10.031,,,,baseline_gpt_rag,gpt-5-mini,"I can only answer from the retrieved evidence you provided. That evidence does NOT contain a live, comprehensive partner list for every airline worldwide. It contains only a prototype partner-airline database and policy guidance. I cannot invent or fetch live partner lists.
+
+What the retrieved evidence does contain
+- Prototype partner-airline entries (from the partner-airlines.txt file):
+  1. Partner Air
+     - Eligibility: Eligible on qualifying flights
+     - Earning rule: Based on eligible fare
+     - Redemption rule: Subject to reward availability
+  2. Global Connect
+     - Eligibility: Eligible for selected fares
+     - Earning rule: Fare-class dependent
+     - Redemption rule: Limited redemption
+
+Policy notes from the retrieved evidence
+- Partner-airline eligibility depends on the partner airline and applicable earning or redemption rules.
+- Do not assume all flights or fares qualify.
+- If required partner information is unavailable, the assistant must explain the limitation.
+
+Limitations and next steps
+- I do not have a live, worldwide partner list in the provided evidence, so I cannot show current live partner lists for every airline worldwide.
+- For live, authoritative partner lists, please consult the airline’s official website or contact the airline’s customer/service desk.
+- If you want, tell me a specific airline or loyalty programme and I will report what (if anything) is present in the prototype database you provided.",partner_airlines.txt; partner_airlines.txt; reward_bookings.txt,success,
+TC-094,partner_airline,exception,Can I redeem on airline ###???,"EXCEPTION — Invalid/unknown airline name; request a valid name, no invented eligibility.",not_required_unless_policy_requires,,,,9.598,,,,baseline_gpt_rag,gpt-5-mini,"I can help — but I need more info. Your message uses ""###"" so I can't tell which airline you mean.
+
+From the retrieved policy documents I can only reference two prototype partner airlines:
+
+- Partner Air
+  - Eligibility: Eligible on qualifying flights
+  - Redemption rule: Subject to reward availability
+
+- Global Connect
+  - Eligibility: Eligible for selected fares
+  - Redemption rule: Limited redemption
+
+What I need from you to give a specific answer:
+1. Which airline do you mean (exact name)?  
+2. The trip details you want to redeem for (origin, destination, cabin).  
+3. Your available redeemable miles (so I can check if you have enough).  
+4. If you know the fare class, tell me that (some fares are ineligible).
+
+Important limitations from the available evidence:
+- Partner eligibility and redemption rules vary by partner and fare class; not all flights or fares qualify.
+- A reward is only eligible if (a) the reward is available, and (b) you have sufficient redeemable miles. I cannot check actual reward availability or your account miles from here.
+- I cannot access or modify accounts or make bookings.
+
+If you tell me the airline (or confirm it’s one of the two prototype partners above) plus the trip details and your miles, I’ll tell you whether, according to the retrieved rules, redemption appears possible and what information is still needed.",partner_airlines.txt; reward_bookings.txt; tier_upgrades.txt,success,
+TC-095,partner_airline,exception,Guarantee that every fare on Partner Air earns miles.,EXCEPTION — Do not guarantee universal earning; eligibility depends on documented rules.,not_required_unless_policy_requires,,,,11.247,,,,baseline_gpt_rag,gpt-5-mini,"Short answer: No — I can’t guarantee every fare on Partner Air earns miles.
+
+What the retrieved policy says
+- Partner Air — Eligibility: “Eligible on qualifying flights.”
+- Partner Air — Earning rule: “Based on eligible fare.”
+- The assistant should not assume that all flights or fares qualify.
+
+What this means
+- Only qualifying flights/fares earn miles with Partner Air; not every fare is automatically eligible.
+- The retrieved materials do not include Partner Air’s detailed fare-class earning table or the specific criteria that define a “qualifying” fare, so I cannot determine eligibility for a particular ticket from the available evidence.
+
+If you want confirmation for a specific booking
+- Provide the partner flight details (airline = Partner Air), flight number, fare class or booking code, ticket number or booking reference.
+- I can then escalate or request the partner’s fare-earning table for a definitive answer.
+
+Limitations
+- I’m answering only from the provided policy excerpts; they lack the detailed fare-class/earning table needed to guarantee mileage earning for every fare.
+- I cannot access or modify accounts or bookings myself — escalation or checking with the partner’s earning chart is required for final confirmation.",partner_airlines.txt; partner_airlines.txt; reward_bookings.txt,success,
+TC-096,partner_airline,escalation,An airline claims to be a partner but it is missing from your list.,ESCALATION — Escalate for human partner-status verification; do not assume eligibility.,required,,,,11.213,,,,baseline_gpt_rag,gpt-5-mini,"Short answer: I do not see that airline in our partner list.
+
+What I checked (limitations)
+- The prototype partner-airline database we must use only lists ""Partner Air"" and ""Global Connect."" There is no other partner airline entry in that source, so I cannot confirm the airline the other party claims is a partner.
+- Per policy, I must retrieve partner-airline information before answering partner questions and must not assume all flights or fares qualify.
+- I cannot access or change accounts, open support cases, or contact the airline on your behalf — I can only advise based on the information in the partner list and the missing-miles policy.
+
+If you want me to help further
+Please provide:
+- The airline name that claims to be a partner
+- Your loyalty membership number (if this is a missing-miles issue)
+- Booking reference or ticket number, flight number and date, and fare class (if known)
+- Whether the transaction shows as Credited, Missing, or Pending in your account (if you can see status)
+- Any proof the other airline gave that it is a partner (e.g., a statement, screenshot, or written confirmation)
+
+What I can do with that information
+- Check the prototype partner list again and confirm whether that airline appears in our records.
+- Tell you what specific information is missing from our records and what documentation/support you should provide to our official support team to request investigation or missing miles credit.
+- Explain the next steps under the missing-miles policy (what we need to investigate a Missing transaction versus Pending or Credited).
+
+If you prefer, provide the details above and I’ll tell you exactly what to submit to official support.",partner_airlines.txt; partner_airlines.txt; missing_miles.txt,success,
+TC-097,partner_airline,escalation,Unknown Airlines denied my mileage claim; please open a support case.,"ESCALATE — Unknown Airlines is not in the supplied partner list. Record the disputed mileage claim for human review, request member/flight/claim evidence, and do not assert partner eligibility or fabricate a support-case number.",required,,,,12.642,,,,baseline_gpt_rag,gpt-5-mini,"I can’t open a support case or access your account. I can, however, help you prepare the information needed to investigate a denied mileage claim and tell you what to check next.
+
+From the programme guidance I can use:
+- To investigate missing miles you (or I, with the details you provide) must identify the member and the relevant transaction.
+- Before proceeding, check the transaction status in your account. Status meanings:
+  - Credited — the miles were already credited (not missing).
+  - Missing — the miles have not been credited.
+  - Pending — the transaction is still being processed and may require more time.
+- Do not assume all flights/fares qualify; if the flight was on a partner airline and partner information is unavailable, that limits what can be investigated and may require escalation.
+
+What I need from you to help prepare an investigation (please provide as much as you can):
+1. Your loyalty programme member identifier (e.g., membership number).
+2. The relevant transaction details: flight date, airline and flight number, origin/destination, booking reference or ticket number (if available).
+3. The transaction status you see in your account (Credited / Missing / Pending).
+4. Whether the flight was operated by a partner airline (and which partner).
+5. The exact reason or message Unknown Airlines gave for denying the mileage claim (copy/paste if possible).
+
+What I’ll do once you provide the above:
+- Confirm whether the transaction appears to be Missing, Pending, or already Credited (based on what you report).
+- Point out any limitations (for example, if partner airline info is missing) and advise what additional details would be needed to escalate.
+- Help you prepare the information you will need to submit to support.
+
+If you want to proceed, please paste the details requested in items 1–5 and I’ll help you prepare the next steps.",missing_miles.txt; reward_bookings.txt; partner_airlines.txt,success,
+TC-098,partner_airline,escalation,Partner Air says my fare qualifies but your policy says it does not.,"ESCALATE — Partner Air (P001) is eligible on qualifying flights with earning based on eligible fare. A claimed conflict about a particular fare cannot be resolved from the partner summary; request fare class, ticket and policy evidence for human review.",required,,,,9.484,,,,baseline_gpt_rag,gpt-5-mini,"Summary of the programme policy (from our partner-airline rules)
+- Partner Air: “Eligible on qualifying flights.” Earning is “based on eligible fare.”  
+- Our rules explicitly say we must retrieve the applicable partner-airline information before confirming whether a specific flight or fare qualifies, and we must not assume that all fares or flights qualify.
+
+What this means for your situation
+- Partner Air saying your fare qualifies is plausible, because Partner Air can specify which fares are “qualifying.”  
+- Equally, our policy does not treat all Partner Air fares as automatically eligible — eligibility depends on the partner’s specific fare/booking-class rules. Because of that, a statement that “your fare does not qualify” could also come from a difference in how the fare was classified.
+
+Limitations
+- I don’t have the specific partner-airline fare/booking-class details for your ticket here. Per policy, I must retrieve the partner’s applicable earning rules or see the fare/booking code to determine eligibility. With the information available here I cannot confirm which side is correct.
+
+If you’d like me to help resolve this
+- Provide the fare/booking class or the ticket number and flight date(s) (or a screenshot/copy of the Partner Air confirmation showing the fare class). With those details I can attempt to retrieve the applicable partner information and explain whether the fare meets our “qualifying” criteria.  
+- If you prefer, I can outline how to escalate this to our partner-validation team (note: I cannot create cases or access accounts myself; I can tell you what to include when you contact support).
+
+Tell me which option you prefer and share the fare/booking-class details if you want me to proceed.",partner_airlines.txt; partner_airlines.txt; tier_upgrades.txt,success,
+TC-099,partner_airline,escalation,I want an agent to review my disputed Global Connect redemption.,"ESCALATE — Global Connect (P002) has “Limited redemption” in the partner data. Escalate the disputed redemption with booking/member details; do not invent redemption eligibility, change a booking or adjust miles.",required,,,,12.522,,,,baseline_gpt_rag,gpt-5-mini,"I can help prepare everything an agent will need to review your disputed Global Connect redemption, but I cannot access accounts, view or change bookings, or complete a review myself. Based only on the available policy excerpts:
+
+- Global Connect: eligible only for selected fares; redemption rule = ""limited redemption."" (partner_airlines.txt)
+- To investigate a missing/incorrect credit, an agent needs the member identity and the relevant transaction, and must check the transaction status (Credited / Missing / Pending) before giving guidance. (missing_miles.txt)
+- The prototype provides eligibility and guidance only; if the available information is insufficient the assistant should request missing information or escalate. (reward_bookings.txt)
+
+What an agent will need you to provide
+- Loyalty account number (member ID) and the name on the account
+- Booking reference / PNR and ticket number(s)
+- Partner airline and flight number(s) (you indicate Global Connect)
+- Travel date(s) and origin/destination
+- Fare class(s) booked (important: Global Connect eligibility is fare-class dependent)
+- A clear description of the dispute (what you expected vs what happened)
+- Any redemption confirmation or transaction record you received (screenshots, emails)
+- The transaction status if you know it (Credited / Missing / Pending) or the date you checked
+- Any supporting receipts or boarding passes
+
+What the agent will check
+- That the flight/fare class is eligible for Global Connect redemption (partner rules are fare-dependent and not all fares qualify)
+- The transaction status (Credited / Missing / Pending) and any processing timelines
+- Whether the redemption action was limited by Global Connect’s “limited redemption” rules
+- Booking and ticket records provided by you
+
+Next steps I can help with
+- If you’d like, I can draft a concise message or escalation request you can send to the airline support team including all required details.
+- Or you can provide the items above here; I’ll check which pieces are missing and advise what to add before contacting support.
+
+Which would you prefer: (A) I draft an escalation message you can send, or (B) you provide the details now and I tell you exactly what’s missing for an agent to complete the review?",reward_bookings.txt; missing_miles.txt; partner_airlines.txt,success,
+TC-100,partner_airline,escalation,The partner earning rate on my statement differs from the policy; investigate.,"ESCALATE — Partner Air earns based on eligible fare and Global Connect is fare-class dependent; no numeric earning rates are provided. Request member, airline, fare class, flight and statement details and escalate the rate discrepancy without inventing a rate.",required,,,,12.043,,,,baseline_gpt_rag,gpt-5-mini,"I can help investigate, but I don’t have access to customer accounts or your statement. Based only on the quoted policies, here’s what may explain a difference and what I need from you to proceed.
+
+What the policy says (summary of retrieved evidence)
+- Partner eligibility and earning rules vary by partner. Example entries in the partner database:
+  - Partner Air: eligible on qualifying flights; earning rule = based on eligible fare.
+  - Global Connect: eligible for selected fares; earning rule = fare-class dependent.
+- The programme does not assume all flights or fares qualify.
+- For missing-mile investigations you (or I) must identify the member and the specific transaction, and check the transaction status:
+  - Credited — already credited (not missing).
+  - Pending — still processing.
+  - Missing — not credited.
+
+Likely causes of a rate mismatch (based on the policy)
+- The flight/fare may not have been eligible for the partner earning rule (some partners or fare classes are excluded).
+- The earning rule may be fare-dependent (e.g., a different accrual for certain fare classes).
+
+What I need from you to investigate further
+- Which partner airline (exact partner name) is shown on the statement.
+- The transaction details: flight number, date, ticket number or booking reference, fare class if you have it.
+- A copy or screenshot of the statement line showing the partner earning rate you’re disputing.
+- Your loyalty membership number (or confirm you’re the member).
+- Any transaction status shown (Credited / Pending / Missing) if available.
+
+What I can and cannot do
+- I cannot access or modify accounts, check your account transactions, or submit claims on your behalf.
+- With the details above I can:
+  - Check the partner rules (from the partner list) and explain whether that fare/class looks like it should qualify, based on the available partner entries.
+  - Tell you the next steps to report missing miles or escalate (what documentation to collect).
+- If the partner information needed to determine eligibility is not available in the database, I’ll explain that limitation and recommend escalating to the programme support team.
+
+If you provide the partner name and the transaction details listed above, I’ll review the applicable partner entry from the policy and tell you whether the policy (as shown in the partner list) explains the difference and what to send to support next.",partner_airlines.txt; missing_miles.txt; partner_airlines.txt,success,
