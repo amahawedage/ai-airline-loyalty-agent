@@ -102,104 +102,132 @@ def generate_baseline_response(query: str, context: str) -> str:
     return str(content or "")
 
 
-st.title("✈️ Airline Loyalty Customer Service Assistant")
-st.subheader("Baseline System — Gemini + RAG")
-st.info(
-    "This baseline application answers general loyalty-programme questions using Gemini "
-    "and retrieved knowledge-base documents. It does not execute account-specific "
-    "transactions or autonomous tasks."
-)
 
-with st.sidebar:
-    st.header("About this system")
-    st.markdown("""
-**Baseline architecture**
-
-1. Customer submits a question.
-2. ChromaDB retrieves relevant knowledge.
-3. Gemini generates a response using retrieved context.
-4. The application displays the answer and source documents.
-
-**Not included**
-- LangGraph orchestration
-- Python agent tools
-- Direct SQLite member lookup
-- Autonomous task execution
-- Automated escalation records
-""")
-    st.divider()
-    st.caption(f"Model: {GOOGLE_MODEL}")
-    st.caption("Architecture: Gemini + RAG")
+# Customer-facing presentation only; Gemini + RAG backend is unchanged.
+st.markdown("""
+<style>
+:root {--navy:#102e58;--blue:#2677d9;--muted:#667c99;}
+.stApp {background:#f8fbff;color:#18365a;}
+[data-testid="stSidebar"] {background:linear-gradient(180deg,#102f59,#092448);}
+[data-testid="stSidebar"] * {color:#f7fbff;}
+[data-testid="stSidebar"] .stButton button {background:transparent;color:#fff;border:1px solid transparent;text-align:left;width:100%;border-radius:10px;}
+[data-testid="stSidebar"] .stButton button:hover {background:#254b7b;border-color:#47678e;}
+.brand {font-size:24px;font-weight:800;padding:12px 0 24px;border-bottom:1px solid #55708d;}
+.brand small {display:block;font-size:12px;font-weight:400;color:#c3d5ec;}
+.hero {padding:35px 32px;border-radius:20px;background:linear-gradient(110deg,#fff 48%,#e7f2ff);border:1px solid #e0eaf7;margin-bottom:28px;}
+.hero h1 {font-size:clamp(27px,3vw,39px);line-height:1.2;color:#102f59;margin:8px 0 14px;font-weight:800;}
+.hero p {color:#647b99;font-size:15px;}
+.eyebrow {font-size:12px;color:#2373ca;letter-spacing:1.4px;font-weight:700;}
+.section {font-size:22px;font-weight:750;color:#102f59;margin:10px 0 4px;}
+.section-sub {font-size:13px;color:#7185a0;margin-bottom:16px;}
+[data-testid="stChatMessage"] {background:#fff;border:1px solid #e5edf8;border-radius:14px;padding:14px;}
+[data-testid="stChatInput"] {border:1px solid #d8e6f7;border-radius:14px;background:#fff;}
+[data-testid="stMainBlockContainer"] {padding-top:2.5rem;}
+.footer-note {text-align:center;color:#8595aa;font-size:11px;margin:28px 0;}
+</style>
+""", unsafe_allow_html=True)
 
 if "baseline_messages" not in st.session_state:
     st.session_state.baseline_messages = []
 if "baseline_traces" not in st.session_state:
     st.session_state.baseline_traces = []
+if "baseline_pending" not in st.session_state:
+    st.session_state.baseline_pending = None
 
+with st.sidebar:
+    st.markdown(
+        '<div class="brand">✈ Airline Loyalty<small>Customer Service Assistant</small></div>',
+        unsafe_allow_html=True,
+    )
+    st.markdown("### Welcome")
+    st.write(
+        "Ask questions about airline loyalty programme policies, "
+        "miles, rewards, membership tiers and partner benefits."
+    )
+    st.markdown("### What this assistant can do")
+    st.write(
+        "Provide general guidance based on available loyalty programme "
+        "knowledge and policy documents."
+    )
+    st.markdown("### Important information")
+    st.caption(
+        "This research demonstration provides information only. "
+        "It cannot access member accounts, confirm personal balances, "
+        "make bookings or change account details."
+    )
+    st.divider()
+    if st.button("↺  New conversation", use_container_width=True):
+        st.session_state.baseline_messages = []
+        st.session_state.baseline_traces = []
+        st.session_state.baseline_pending = None
+        st.rerun()
+
+st.markdown("""<div class="hero"><div class="eyebrow">YOUR LOYALTY JOURNEY, MADE EASIER</div>
+<h1>✈ Airline Loyalty AI<br>Customer Service Assistant</h1>
+<p>Welcome! Ask about loyalty programme policies, rewards, tier benefits and more.</p></div>""", unsafe_allow_html=True)
+st.markdown(
+    '<div class="section">Ask a loyalty programme question</div>'
+    '<div class="section-sub">Enter your question in the chat box below to get general programme guidance.</div>',
+    unsafe_allow_html=True,
+)
+
+if st.session_state.baseline_messages:
+    st.markdown("### Your conversation")
 for message in st.session_state.baseline_messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
-        if message["role"] == "assistant" and message.get("sources"):
-            with st.expander("Retrieved knowledge sources"):
-                for source in message["sources"]:
-                    st.write(f"- {source}")
+        if message["role"] == "assistant":
+            if "response_time_seconds" in message:
+                st.caption(f"Response time: {message['response_time_seconds']:.2f} seconds")
+            with st.expander("Knowledge sources"):
+                if message.get("sources"):
+                    for source in message["sources"]:
+                        st.write(f"- {source}")
+                else:
+                    st.caption("No knowledge-base sources were retrieved.")
 
-user_query = st.chat_input("Ask a question about airline loyalty services...")
+user_query = st.chat_input("Ask me anything about your airline loyalty programme...")
+if st.session_state.baseline_pending:
+    user_query = st.session_state.baseline_pending
+    st.session_state.baseline_pending = None
+
 if user_query:
     st.session_state.baseline_messages.append({"role": "user", "content": user_query})
     with st.chat_message("user"):
         st.markdown(user_query)
     with st.chat_message("assistant"):
-        response_placeholder = st.empty()
         start_time = time.perf_counter()
         try:
-            with st.spinner("Retrieving knowledge and generating response..."):
+            with st.spinner("Finding relevant loyalty programme information..."):
                 retrieved_context, sources = get_retrieved_context(user_query)
                 answer = generate_baseline_response(user_query, retrieved_context)
             elapsed_time = time.perf_counter() - start_time
-            response_placeholder.markdown(answer)
+            st.markdown(answer)
             st.caption(f"Response time: {elapsed_time:.2f} seconds")
-            if sources:
-                with st.expander("Retrieved knowledge sources"):
+            with st.expander("Knowledge sources"):
+                if sources:
                     for source in sources:
                         st.write(f"- {source}")
-            else:
-                st.warning("No knowledge-base sources were retrieved.")
-            st.session_state.baseline_messages.append(
-                {"role": "assistant", "content": answer, "sources": sources}
-            )
-            st.session_state.baseline_traces.append({
-                "query": user_query,
-                "sources": sources,
-                "response": answer,
-                "response_time_seconds": round(elapsed_time, 3),
-                "model": GOOGLE_MODEL,
-            })
+                else:
+                    st.caption("No knowledge-base sources were retrieved.")
+            st.session_state.baseline_messages.append({"role":"assistant", "content":answer, "sources":sources, "response_time_seconds":elapsed_time})
+            st.session_state.baseline_traces.append({"query":user_query,"sources":sources,"response":answer,"response_time_seconds":round(elapsed_time,3),"model":GOOGLE_MODEL})
         except Exception as error:
-            # Avoid displaying exception text directly: API errors can contain credentials.
-            response_placeholder.error(
-                "Unable to process this enquiry. Check the application logs and API configuration."
-            )
-            st.session_state.baseline_messages.append({
-                "role": "assistant",
-                "content": "Unable to process this enquiry. Please try again.",
-                "sources": [],
-            })
-            st.session_state.baseline_traces.append({
-                "query": user_query,
-                "status": "ERROR",
-                "error_type": type(error).__name__,
-                "response_time_seconds": round(time.perf_counter() - start_time, 3),
-                "model": GOOGLE_MODEL,
-            })
+            # Do not expose provider exceptions or credentials to the UI.
+            message = "Unable to process this enquiry. Please try again."
+            st.error(message)
+            st.session_state.baseline_messages.append({"role":"assistant","content":message,"sources":[]})
+            st.session_state.baseline_traces.append({"query":user_query,"status":"ERROR","error_type":type(error).__name__,"response_time_seconds":round(time.perf_counter()-start_time,3),"model":GOOGLE_MODEL})
+    st.rerun()
 
-with st.expander("Baseline evaluation trace"):
-    st.write("The trace records queries, retrieved sources, responses, model and response times for this session.")
+with st.expander("Research evaluation details"):
+    st.caption("Session-only evaluation trace; no agent tools or account-specific actions are performed.")
     if st.session_state.baseline_traces:
         st.json(st.session_state.baseline_traces)
     else:
-        st.caption("No queries have been processed in this session.")
-    if st.button("Clear conversation and trace"):
+        st.caption("No enquiries processed yet.")
+    if st.button("Clear conversation and evaluation trace"):
         st.session_state.baseline_messages = []
         st.session_state.baseline_traces = []
         st.rerun()
+st.markdown('<div class="footer-note">Research demonstration using simulated loyalty programme knowledge. No live customer account access.</div>', unsafe_allow_html=True)
