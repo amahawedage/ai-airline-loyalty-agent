@@ -1,0 +1,7 @@
+﻿metric,value,unit,scored_cases,total_cases,note
+Response accuracy (%),,%,0,5,Partial coverage; unscored or failed cases excluded
+Task completion (%),,%,0,5,Partial coverage; unscored or failed cases excluded
+Relevance and completeness (1-5),,score / 5,0,5,Partial coverage; unscored or failed cases excluded
+Mean response time (seconds),4.895,seconds,5,5,
+Hallucination/error rate (%),,%,0,5,Partial coverage; unscored or failed cases excluded
+Escalation appropriateness (%),,%,0,5,Not applicable: baseline has no escalation tool; assess separately if desired

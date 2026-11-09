@@ -680,25 +680,25 @@ with st.sidebar:
         st.rerun()
 
     if st.button(
-        "🎁 Reward Bookings",
-        key="nav_rewards",
-    ):
-
-        st.session_state.pending_query = (
-            SCENARIOS["Reward Bookings"]["query"]
-        )
-
-        st.rerun()
-
-    if st.button(
-        "♕ Tier Upgrades",
-        key="nav_tier",
-    ):
-
+            "♕ Tier Upgrades",
+            key="nav_tier",
+        ):
+    
         st.session_state.pending_query = (
             SCENARIOS["Tier Upgrades"]["query"]
         )
+  
+        st.rerun()
 
+    if st.button(
+            "🎁 Reward Bookings",
+            key="nav_rewards",
+        ):
+    
+        st.session_state.pending_query = (
+            SCENARIOS["Reward Bookings"]["query"]
+        )
+   
         st.rerun()
 
     if st.button(

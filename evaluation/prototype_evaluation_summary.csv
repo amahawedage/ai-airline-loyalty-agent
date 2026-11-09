@@ -1,7 +1,7 @@
 ﻿metric,value,unit,scored_cases,total_cases,note
-Response accuracy (%),,%,0,100,Partial coverage; unscored cases excluded
-Task completion (%),,%,0,100,Partial coverage; unscored cases excluded
-Hallucination/error rate (%),,%,0,100,Partial coverage; unscored cases excluded
-Escalation appropriateness (%),3.704,%,27,100,Partial coverage; unscored cases excluded
-Relevance and completeness (1-5),,score / 5,0,100,Partial coverage; unscored cases excluded
-Mean response time (seconds),3.001,seconds,100,100,
+Response accuracy (%),,%,0,100,Partial coverage; unscored or failed cases excluded
+Task completion (%),,%,0,100,Partial coverage; unscored or failed cases excluded
+Relevance and completeness (1-5),,score / 5,0,100,Partial coverage; unscored or failed cases excluded
+Mean response time (seconds),2.859,seconds,99,100,Partial coverage; unscored or failed cases excluded
+Hallucination/error rate (%),,%,0,100,Partial coverage; unscored or failed cases excluded
+Escalation appropriateness (%),93.243,%,74,100,Partial coverage; unscored or failed cases excluded
